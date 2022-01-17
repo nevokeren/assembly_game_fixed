@@ -174,7 +174,6 @@ t:
 	cmp [block6_y], dx
 	JNE r
 	call break
-	
 r:
 	ret
 ENDP eliminate
@@ -184,8 +183,9 @@ PROC move_down
 ; move down
 	mov bh, 00h
 	mov cx, 300
-	mov ah, 0dh
+	mov ah, 0ch
 	mov dx, [player_y]
+	add [player_y], 50
 	mov [loop_], dx
 	add [loop_], 60
 color1:
@@ -220,17 +220,22 @@ delete1:
 
 	cmp dx, [loop_]
 	JNE color1
+;	mov [player_y], dx
 	ret
+	
 ENDP move_down
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC move_up
 ; move up
-	mov cx, 300
-	mov dx, [player_y]
 	mov bh, 00h
+	mov cx, 300
 	mov ah, 0ch
+	mov dx, [player_y]
+	sub [player_y], 50
+	mov [loop_], dx
+	sub [loop_], 50
 color:
 	mov al, [player]
 	int 10h
@@ -248,17 +253,24 @@ color:
 delete_line:
 	mov al, [linescolor]
 delete:
+	
 	int 10h
 	dec cx
 	cmp cx, 295
 	JNE delete
+;;;line down
+	sub dx, 11
 	mov cx, 300
-	push bx
-	mov bx, 0
+;;;delay
+	push dx
+	mov dx, 7500
 	sub dx, 10
-	mov al, [player]
 	call delay
-	add [player_y], 50
+	pop dx
+
+	cmp dx, [loop_]
+	JNE color
+;	mov [player_y], dx
 	ret
 ENDP move_up
 
@@ -282,18 +294,23 @@ randstart:
 wait_:
 	call eliminate
 	mov  ah, 01h
-    int  16h
+	int  16h
 	JZ main
 	mov ah, 00h
 	int 16h
 	
 	cmp ah, 48h
 	JNE next
+	cmp [player_y], 60
+	JE main
 	call move_up
 	call randomize_blocks
+
 next:
 	cmp ah, 50h
 	JNE main
+	cmp [player_y], 160
+	JE main
 	call move_down
 	call randomize_blocks
 
@@ -305,45 +322,147 @@ ENDP WaitForData
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC randomize_blocks
-	cmp [block1_y], 00
-	JNE c_1
-	cmp [block2_y], 00
-	JNE c2
-	cmp [block3_y], 00
-	JNE c3
-	cmp [block4_y], 00
-	JNE c4
-	cmp [block5_y], 00
-	JNE c5
-	cmp [block6_y], 00
-	JNE c6
-c_1:
-	cmp [block1_x], 00
-	JNE y1
-	call jenerate_block
-	y1:
-	
-c2:
-	cmp [block2_x], 00
-	JNE y2
-	call jenerate_block
-	y2:
-c3:
-	cmp [block3_x], 00
-	JNE y3
-	call jenerate_block
-	y3:
-c4:
-c5:
-c6:
+t1:
+		mov bx, 1
+		push bx
+		cmp [block1_x], 00
+		JE t2
+		cmp [block1_y], 50
+		JNE cmp1
+		call higher_block
+	cmp1:
+		cmp [block1_y], 100
+		JNE cmp2
+		call middle_block
+	cmp2:
+		cmp [block1_y], 150
+		JNE t2
+		call lower_block
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+t2:
+		pop bx
+		mov bx,2
+		push bx
+		cmp [block2_x], 00
+		JNE t3
+		cmp [block2_y], 50
+		JNE cmp3
+		call higher_block
+	cmp3:
+		cmp [block2_y], 100
+		JNE cmp4
+		call middle_block
+	cmp4:
+		cmp [block2_y], 150
+		JNE t3
+		call lower_block
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+t3:
+		pop bx
+		mov bx,3
+		push bx
+		cmp [block3_x], 00
+		JNE t4
+		cmp [block3_y], 50
+		JNE cmp5
+		call higher_block
+	cmp5:
+		cmp [block3_y], 100
+		JNE cmp6
+		call middle_block
+	cmp6:
+		cmp [block3_y], 150
+		JNE t4
+		call lower_block
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+t4:
+		pop bx
+		mov bx,4
+		push bx
+		cmp [block4_x], 00
+		JNE t5
+		cmp [block4_y], 50
+		JNE cmp7
+		call higher_block
+	cmp7:
+		cmp [block4_y], 100
+		JNE cmp8
+		call middle_block
+	cmp8:
+		cmp [block4_y], 150
+		JNE t5
+		call lower_block
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+t5:
+		pop bx
+		mov bx,5
+		push bx
+		cmp [block5_x], 00
+		JNE t7
+		cmp [block5_y], 50
+		JNE cmp9
+		call higher_block
+	cmp9:
+		cmp [block5_y], 100
+		JNE cmp10
+		call middle_block
+	cmp10:
+		cmp [block5_y], 150
+		JNE t6
+		call lower_block
+;;;;;;;;;;;;;;;;;;;;;;;;;
+t6:
+		pop bx
+		mov bx,6
+		push bx
+		cmp [block6_x], 00
+		JNE t7
+		cmp [block6_y], 50
+		JNE cmp11
+		call higher_block
+	cmp11:
+		cmp [block6_y], 100
+		JNE cmp12
+		call middle_block
+	cmp12:
+		cmp [block6_y], 150
+		JNE t7
+		call lower_block
+
+t7:
+	pop bx
 	ret
 ENDP randomize_blocks
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC higher_block
-	inc cx
-	mov dx, 50
+	pop bx
+	cmp bx, 1
+	JNE 2_:
+	mov dx, [block1_y]
+2_:
+	cmp bx,2
+	JNE 3_
+	mov dx, [block2_y]
+3_:
+	cmp bx,2
+	JNE 3_
+	mov dx, [block2_y]
+4_:
+	cmp bx,2
+	JNE 3_
+	mov dx, [block2_y]
+5_:
+	cmp bx,2
+	JNE 3_
+	mov dx, [block2_y]
+6_:
+	cmp bx,2
+	JNE 3_
+	mov dx, [block2_y]
+
+
 	mov ah, 0ch
 	mov bh, 0h
 	mov al, [block_color]
