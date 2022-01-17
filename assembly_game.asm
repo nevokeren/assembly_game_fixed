@@ -304,7 +304,7 @@ wait_:
 	cmp [player_y], 60
 	JE main
 	call move_up
-	call randomize_blocks
+	call sort
 
 next:
 	cmp ah, 50h
@@ -312,131 +312,174 @@ next:
 	cmp [player_y], 160
 	JE main
 	call move_down
-	call randomize_blocks
+	call sort
 
 main:
-	call randomize_blocks
+	call sort
 	JMP WaitForData
 ENDP WaitForData
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC randomize_blocks
+PROC sort
 t1:
 		mov bx, 1
 		push bx
+
 		cmp [block1_x], 00
 		JE t2
 		cmp [block1_y], 50
 		JNE cmp1
-		call higher_block
+		mov ax, 1
+		push ax
+		call move_block
 	cmp1:
 		cmp [block1_y], 100
 		JNE cmp2
-		call middle_block
+		mov ax, 2
+		push ax
+		call move_block
 	cmp2:
 		cmp [block1_y], 150
 		JNE t2
-		call lower_block
+		mov ax, 3
+		push ax
+		call move_block
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 t2:
 		pop bx
 		mov bx,2
 		push bx
+
 		cmp [block2_x], 00
 		JNE t3
 		cmp [block2_y], 50
 		JNE cmp3
-		call higher_block
+		mov ax, 1
+		push ax
+		call move_block
 	cmp3:
 		cmp [block2_y], 100
 		JNE cmp4
-		call middle_block
+		mov ax, 2
+		push ax
+		call move_block
 	cmp4:
 		cmp [block2_y], 150
 		JNE t3
-		call lower_block
+		mov ax, 3
+		push ax
+		call move_block
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 t3:
 		pop bx
 		mov bx,3
 		push bx
+
 		cmp [block3_x], 00
 		JNE t4
 		cmp [block3_y], 50
 		JNE cmp5
-		call higher_block
+		mov ax, 1
+		push ax
+		call move_block
 	cmp5:
 		cmp [block3_y], 100
 		JNE cmp6
-		call middle_block
+		mov ax, 2
+		push ax
+		call move_block
 	cmp6:
 		cmp [block3_y], 150
 		JNE t4
-		call lower_block
+		mov ax, 3
+		push ax
+		call move_block
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 t4:
 		pop bx
 		mov bx,4
 		push bx
+
 		cmp [block4_x], 00
 		JNE t5
 		cmp [block4_y], 50
 		JNE cmp7
-		call higher_block
+		mov ax, 1
+		push ax
+		call move_block
 	cmp7:
 		cmp [block4_y], 100
 		JNE cmp8
-		call middle_block
+		mov ax, 2
+		push ax
+		call move_block
 	cmp8:
 		cmp [block4_y], 150
 		JNE t5
-		call lower_block
+		mov ax, 3
+		push ax
+		call move_block
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 t5:
 		pop bx
 		mov bx,5
 		push bx
+
 		cmp [block5_x], 00
 		JNE t7
 		cmp [block5_y], 50
 		JNE cmp9
-		call higher_block
+		mov ax, 1
+		push ax
+		call move_block
 	cmp9:
 		cmp [block5_y], 100
 		JNE cmp10
-		call middle_block
+		mov ax, 2
+		push ax
+		call move_block
 	cmp10:
 		cmp [block5_y], 150
 		JNE t6
-		call lower_block
+		mov ax, 3
+		push ax
+		call move_block
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 t6:
 		pop bx
 		mov bx,6
 		push bx
+
 		cmp [block6_x], 00
 		JNE t7
 		cmp [block6_y], 50
 		JNE cmp11
-		call higher_block
+		mov ax, 1
+		push ax
+		call move_block
 	cmp11:
 		cmp [block6_y], 100
 		JNE cmp12
-		call middle_block
+		mov ax, 2
+		push ax
+		call move_block
 	cmp12:
 		cmp [block6_y], 150
 		JNE t7
-		call lower_block
+		mov ax, 3
+		puah ax
+		call move_block
 
 t7:
 	pop bx
 	ret
-ENDP randomize_blocks
+ENDP sort
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC higher_block
+PROC move_block
+	pop ax
 	pop bx
 	cmp bx, 1
 	JNE 2_:
@@ -446,20 +489,19 @@ PROC higher_block
 	JNE 3_
 	mov dx, [block2_y]
 3_:
-	cmp bx,2
-	JNE 3_
+	cmp bx,3
+	JNE 4_
 	mov dx, [block2_y]
 4_:
-	cmp bx,2
-	JNE 3_
+	cmp bx,4
+	JNE 5_
 	mov dx, [block2_y]
 5_:
-	cmp bx,2
-	JNE 3_
+	cmp bx,5
+	JNE 6_
 	mov dx, [block2_y]
 6_:
-	cmp bx,2
-	JNE 3_
+	cmp bx,6
 	mov dx, [block2_y]
 
 
@@ -496,45 +538,45 @@ ENDP higher_block
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC middle_block
-	mov cx, 320
+; PROC middle_block
+; 	mov cx, 320
 
-	mov dx, 110
-	mov ah, 0dh
-	mov bh, 0h
-	int 10h
-	inc cx
-	mov dx, 100
-	mov ah, 0ch
-	mov bh, 0h
-	mov al, [block_color]
-color_block1:			;color next block's row
-	int 10h
-	inc dx
-	cmp dx, 130
-	JNE color_block1
-delete_blocks_back1:
-	sub cx, 60
-	cmp cx, 0
-	JNL not_wait
-	call wait_
-not_wait:
-	JMP s
-call_WaitForData1:
-	call WaitForData
-s:
-	mov dx, 100
-	mov ah, 0ch
-	mov bh, 00h
-	mov al, [backgroundcolor]
-u:
-	int 10h
-	inc dx
-	cmp dx, 130
-	JNE u
-	JMP wait_
-	ret
-ENDP middle_block
+; 	mov dx, 110
+; 	mov ah, 0dh
+; 	mov bh, 0h
+; 	int 10h
+; 	inc cx
+; 	mov dx, 100
+; 	mov ah, 0ch
+; 	mov bh, 0h
+; 	mov al, [block_color]
+; color_block1:			;color next block's row
+; 	int 10h
+; 	inc dx
+; 	cmp dx, 130
+; 	JNE color_block1
+; delete_blocks_back1:
+; 	sub cx, 60
+; 	cmp cx, 0
+; 	JNL not_wait
+; 	call wait_
+; not_wait:
+; 	JMP s
+; call_WaitForData1:
+; 	call WaitForData
+; s:
+; 	mov dx, 100
+; 	mov ah, 0ch
+; 	mov bh, 00h
+; 	mov al, [backgroundcolor]
+; u:
+; 	int 10h
+; 	inc dx
+; 	cmp dx, 130
+; 	JNE u
+; 	JMP wait_
+; 	ret
+; ENDP middle_block
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
