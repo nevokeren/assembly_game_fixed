@@ -24,7 +24,7 @@ DATASEG
 	;blocks data
 		blocks_highest_x dw 00
 		max_block dw 00
-		block1_y dw 00
+		block1_y dw 00	
 		block2_y dw 00
 		block3_y dw 00
 		block4_y dw 00
@@ -155,7 +155,28 @@ PROC eliminate
 	JE t
 	ret
 t:
+	mov dx, [player_y]
+	cmp [block1_y], dx
+	JNE r
 	call break
+	cmp [block2_y], dx
+	JNE r
+	call break
+	cmp [block3_y], dx
+	JNE r
+	call break
+	cmp [block4_y], dx
+	JNE r
+	call break
+	cmp [block5_y], dx
+	JNE r
+	call break
+	cmp [block6_y], dx
+	JNE r
+	call break
+	
+r:
+	ret
 ENDP eliminate
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -208,7 +229,6 @@ PROC move_up
 ; move up
 	mov cx, 300
 	mov dx, [player_y]
-	mov ah, [player]
 	mov bh, 00h
 	mov ah, 0ch
 color:
@@ -298,12 +318,21 @@ PROC randomize_blocks
 	cmp [block6_y], 00
 	JNE c6
 c_1:
-	cmp [block1_x], 70
-	JNE y
-	y:
+	cmp [block1_x], 00
+	JNE y1
+	call jenerate_block
+	y1:
 	
 c2:
+	cmp [block2_x], 00
+	JNE y2
+	call jenerate_block
+	y2:
 c3:
+	cmp [block3_x], 00
+	JNE y3
+	call jenerate_block
+	y3:
 c4:
 c5:
 c6:
