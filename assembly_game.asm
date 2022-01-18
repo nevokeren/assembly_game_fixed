@@ -48,6 +48,7 @@ DATASEG
 		block6len dw 00
 	;randoms
 		random dw 00
+		random_len dw 00
 	
 
 
@@ -291,21 +292,13 @@ ENDP move_up
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC WaitForData
-;create randoms
-create_randoms:
-randstart:
-	mov ah,0h ; interrupts to get system time
-	int 1ah
-	mov ax,dx
-	xor dx,dx
-	mov cx,3
-	div cx ;  dx contains the remain of the division - from 0 to 9
-	add dx,1
-	mov [random], dx
+randstart:			;create randoms
+	mov bx, 3
+	call randommize
+	mov ax, [random_len]
+	mov [random], ax
 
-		
-;wait for data
-wait_:
+wait_:					;wait for data
 	call eliminate
 	mov  ah, 01h
 	int  16h
@@ -325,7 +318,6 @@ next:
 	cmp [player_y], 160
 	JE main
 	call move_down
-	call sort
 
 main:
 	call sort
@@ -337,7 +329,6 @@ ENDP WaitForData
 PROC sort
 t1:
 		mov bx, 1
-		push bx
 
 		cmp [block1_x], 00
 		JNE t2
@@ -346,9 +337,9 @@ t1:
 		mov [block1_y], 50
 	cmpr1:
 		cmp [random], 2
-		JNE cmpr3
+		JNE cmpr2
 		mov [block1_y], 100
-	cmpr3:
+	cmpr2:
 		cmp [random], 3
 		JNE t2
 		mov [block1_y], 150
@@ -358,13 +349,10 @@ t1:
 		mov bx, 11
 		call multiply
 		mov [block1len], ax
-		call move_block
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 t2:
 		call move_block
-		pop bx
 		mov bx,2
-		push bx
 
 		cmp [block2_x], 00
 		JNE t3
@@ -382,9 +370,7 @@ t2:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 t3:
 		call move_block
-		pop bx
 		mov bx,3
-		push bx
 
 		cmp [block3_x], 00
 		JNE t4
@@ -402,9 +388,7 @@ t3:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 t4:
 		call move_block
-		pop bx
 		mov bx,4
-		push bx
 
 		cmp [block4_x], 00
 		JNE t5
@@ -422,9 +406,7 @@ t4:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 t5:
 		call move_block
-		pop bx
 		mov bx,5
-		push bx
 
 		cmp [hard_mode], 1
 		JE n
@@ -446,9 +428,7 @@ t5:
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 t6:
 		call move_block
-		pop bx
 		mov bx,6
-		push bx
 
 		cmp [hard_mode], 1
 		JE z
@@ -470,33 +450,34 @@ t6:
 		call move_block
 
 t7:
-	pop bx
 	ret
 ENDP sort
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC move_block    ;;;move/jenerate block in chosen course
-;	pop ax
 	mov ah, 0ch
 	mov bh, 00h
 	mov al, [block_color]
+	JMP start_draw_block
 
 delete_back:
 	mov al, [backgroundcolor]
 	int 10h
+	inc dx
 	cmp dx, [block1_y]
 	JNE delete_back
 	sub [block1_y], 30
 	ret
 
-	pop bx
-_1:
+start_draw_block:
+
 	cmp bx, 1
 	JNE _2
 	mov dx, [block1_y]
 	add [block1_y], 30
 	mov cx, [block1_x]
+_1:
 	int 10h
 	inc dx
 	cmp dx, [block1_y]
@@ -508,12 +489,12 @@ _1:
 	call delete_back
 l1:
 	ret
-_2:
 	cmp bx,2
 	JNE _3
 	mov dx, [block2_y]
 	add [block2_y], 30
 	mov cx, [block2_x]
+_2:
 	int 10h
 	inc dx
 	cmp dx, [block2_y]
@@ -525,12 +506,12 @@ _2:
 	call delete_back
 l2:
 	ret
-_3:
 	cmp bx,3
 	JNE _4
 	mov dx, [block3_y]
 	add [block3_y], 30
 	mov cx, [block3_x]
+_3:
 	int 10h
 	inc dx
 	cmp dx, [block3_y]
@@ -542,12 +523,13 @@ _3:
 	call delete_back
 l3:
 	ret
-_4:
+
 	cmp bx,4
 	JNE _5
 	mov dx, [block4_y]
 	add [block4_y], 30
 	mov cx, [block4_x]
+_4:
 	int 10h
 	inc dx
 	cmp dx, [block4_y]
@@ -559,12 +541,13 @@ _4:
 	call delete_back
 l4:
 	ret
-_5:
+
 	cmp bx,5
 	JNE _6
 	mov dx, [block5_y]
 	add [block5_y], 30
 	mov cx, [block5_x]
+_5:
 	int 10h
 	inc dx
 	cmp dx, [block5_y]
@@ -576,11 +559,11 @@ _5:
 	call delete_back
 l5:
 	ret
-_6:
 	cmp bx,6
 	mov dx, [block6_y]
 	add [block6_y], 30
 	mov cx, [block6_x]
+_6:
 	int 10h
 	inc dx
 	cmp dx, [block6_y]
@@ -597,15 +580,15 @@ ENDP move_block
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC randommize
-	mov ah,0h ; interrupts to get system time
+PROC randommize				;;;randomize number between 1-bx
+	mov ah,0h ;get system time
 	int 1ah
 	mov ax,dx
 	xor dx,dx
 	mov cx, bx
-	div cx ;  dx contains the remain of the division - from 0 to 9
+	div cx ;  dx contains the remain of the cx devided by bx (from 0 to bx)
 	add dx,1
-	mov [random], dx
+	mov [random_len], dx
 	ret
 ENDP randommize
 
