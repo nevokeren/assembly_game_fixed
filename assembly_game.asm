@@ -179,8 +179,7 @@ r:
 ENDP eliminate
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC move_down
-; move down
+PROC move_down   ; move down
 	mov bh, 00h
 	mov cx, 300
 	mov ah, 0ch
@@ -188,6 +187,7 @@ PROC move_down
 	add [player_y], 50
 	mov [loop_], dx
 	add [loop_], 60
+
 color1:
 	mov al, [player]
 	int 10h
@@ -202,16 +202,20 @@ color1:
 	JE delete_line1
 	mov al, [backgroundcolor]
 	JMP delete1
+
 delete_line1:
 	mov al, [linescolor]
+
 delete1:
 	int 10h
 	dec cx
 	cmp cx, 295
 	JNE delete1
+
 ;;;line down
 	add dx, 11
 	mov cx, 300
+
 ;;;delay
 	push dx
 	mov dx, 7500
@@ -220,15 +224,13 @@ delete1:
 
 	cmp dx, [loop_]
 	JNE color1
-;	mov [player_y], dx
 	ret
 	
 ENDP move_down
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC move_up
-; move up
+PROC move_up   ; move up
 	mov bh, 00h
 	mov cx, 300
 	mov ah, 0ch
@@ -236,6 +238,7 @@ PROC move_up
 	sub [player_y], 50
 	mov [loop_], dx
 	sub [loop_], 50
+
 color:
 	mov al, [player]
 	int 10h
@@ -250,17 +253,20 @@ color:
 	JE delete_line
 	mov al, [backgroundcolor]
 	JMP delete
+
 delete_line:
 	mov al, [linescolor]
+
 delete:
-	
 	int 10h
 	dec cx
 	cmp cx, 295
 	JNE delete
+
 ;;;line down
 	sub dx, 11
 	mov cx, 300
+
 ;;;delay
 	push dx
 	mov dx, 7500
@@ -270,7 +276,6 @@ delete:
 
 	cmp dx, [loop_]
 	JNE color
-;	mov [player_y], dx
 	ret
 ENDP move_up
 
@@ -468,7 +473,7 @@ t6:
 		cmp [block6_y], 150
 		JNE t7
 		mov ax, 3
-		puah ax
+		push ax
 		call move_block
 
 t7:
@@ -478,7 +483,7 @@ ENDP sort
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC move_block
+; PROC move_block
 	pop ax
 	pop bx
 	cmp bx, 1
@@ -536,79 +541,39 @@ l:
 	ret
 ENDP higher_block
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; PROC middle_block
-; 	mov cx, 320
 
-; 	mov dx, 110
-; 	mov ah, 0dh
-; 	mov bh, 0h
-; 	int 10h
-; 	inc cx
-; 	mov dx, 100
-; 	mov ah, 0ch
-; 	mov bh, 0h
+
+
+; PROC jenerate_block
+; 	mov dx, [random]
+; 	cmp dx, 1
+; 	JNE cmpr2
+; 	mov dx, 50
+; 	mov [max_block], 100
 ; 	mov al, [block_color]
-; color_block1:			;color next block's row
-; 	int 10h
-; 	inc dx
-; 	cmp dx, 130
-; 	JNE color_block1
-; delete_blocks_back1:
-; 	sub cx, 60
-; 	cmp cx, 0
-; 	JNL not_wait
-; 	call wait_
-; not_wait:
-; 	JMP s
-; call_WaitForData1:
-; 	call WaitForData
-; s:
-; 	mov dx, 100
 ; 	mov ah, 0ch
 ; 	mov bh, 00h
-; 	mov al, [backgroundcolor]
-; u:
+; 	mov cx, 1
+; jenerate:
 ; 	int 10h
 ; 	inc dx
-; 	cmp dx, 130
-; 	JNE u
-; 	JMP wait_
+; 	cmp dx, [max_block]
+; 	JNE jenerate
 ; 	ret
-; ENDP middle_block
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-PROC jenerate_block
-	mov dx, [random]
-	cmp dx, 1
-	JNE cmpr2
-	mov dx, 50
-	mov [max_block], 100
-	mov al, [block_color]
-	mov ah, 0ch
-	mov bh, 00h
-	mov cx, 1
-jenerate:
-	int 10h
-	inc dx
-	cmp dx, [max_block]
-	JNE jenerate
-	ret
-cmpr2:
-	cmp dx, 2
-	JNE cmpr3
-	mov cx, 1
-	mov dx, 120
-	mov [max_block], 170
-	JMP jenerate
-cmpr3:
-	mov cx, 1
-	mov dx, 190
-	mov [max_block], 240
-	JMP jenerate
-ENDP jenerate_block
+; cmpr2:
+; 	cmp dx, 2
+; 	JNE cmpr3
+; 	mov cx, 1
+; 	mov dx, 120
+; 	mov [max_block], 170
+; 	JMP jenerate
+; cmpr3:
+; 	mov cx, 1
+; 	mov dx, 190
+; 	mov [max_block], 240
+; 	JMP jenerate
+; ENDP jenerate_block
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
