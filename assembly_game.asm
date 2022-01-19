@@ -11,7 +11,7 @@ DATASEG
 		backgroundcolor db 8
 		block_color db 6
 	;player data
-		player db 10
+		player db 1
 		player_y dw 110
 	;lines
 		leftline dw 40
@@ -21,6 +21,9 @@ DATASEG
 	;loop data
 		loop_ dw 00
 		progress dw 00
+		block_y dw 00
+		block_x dw, 00
+	;mode
 		hard_mode dw 00
 	;blocks data
 		blocks_highest_x dw 00
@@ -49,6 +52,8 @@ DATASEG
 	;randoms
 		random dw 00
 		random_len dw 00
+	;indicators
+		indicator dw 00
 	
 
 
@@ -327,127 +332,14 @@ ENDP WaitForData
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC sort
-t1:
-		mov bx, 1
-
-		cmp [block1_x], 00
-		JNE t2
-		cmp [random], 1
-		JNE cmpr1
-		mov [block1_y], 50
-	cmpr1:
-		cmp [random], 2
-		JNE cmpr2
-		mov [block1_y], 100
-	cmpr2:
-		cmp [random], 3
-		JNE t2
-		mov [block1_y], 150
+t1:		
 		mov bx, 5
 		call randommize
 		mov ax, [random]
 		mov bx, 11
 		call multiply
-		mov [block1len], ax
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-t2:
-		call move_block
-		mov bx,2
+		mov [block1len], al
 
-		cmp [block2_x], 00
-		JNE t3
-		cmp [block2_y], 50
-		JNE cmp3
-		call move_block
-	cmp3:
-		cmp [block2_y], 100
-		JNE cmp4
-		call move_block
-	cmp4:
-		cmp [block2_y], 150
-		JNE t3
-		call move_block
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-t3:
-		call move_block
-		mov bx,3
-
-		cmp [block3_x], 00
-		JNE t4
-		cmp [block3_y], 50
-		JNE cmp5
-		call move_block
-	cmp5:
-		cmp [block3_y], 100
-		JNE cmp6
-		call move_block
-	cmp6:
-		cmp [block3_y], 150
-		JNE t4
-		call move_block
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-t4:
-		call move_block
-		mov bx,4
-
-		cmp [block4_x], 00
-		JNE t5
-		cmp [block4_y], 50
-		JNE cmp7
-		call move_block
-	cmp7:
-		cmp [block4_y], 100
-		JNE cmp8
-		call move_block
-	cmp8:
-		cmp [block4_y], 150
-		JNE t5
-		call move_block
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-t5:
-		call move_block
-		mov bx,5
-
-		cmp [hard_mode], 1
-		JE n
-		ret
-	n:
-		cmp [block5_x], 00
-		JNE t7
-		cmp [block5_y], 50
-		JNE cmp9
-		call move_block
-	cmp9:
-		cmp [block5_y], 100
-		JNE cmp10
-		call move_block
-	cmp10:
-		cmp [block5_y], 150
-		JNE t6
-		call move_block
-;;;;;;;;;;;;;;;;;;;;;;;;;
-t6:
-		call move_block
-		mov bx,6
-
-		cmp [hard_mode], 1
-		JE z
-		ret
-	z:
-
-		cmp [block6_x], 00
-		JNE t7
-		cmp [block6_y], 50
-		JNE cmp11
-		call move_block
-	cmp11:
-		cmp [block6_y], 100
-		JNE cmp12
-		call move_block
-	cmp12:
-		cmp [block6_y], 150
-		JNE t7
-		call move_block
 
 t7:
 	ret
@@ -458,129 +350,88 @@ ENDP sort
 PROC move_block    ;;;move/jenerate block in chosen course
 	mov ah, 0ch
 	mov bh, 00h
-	mov al, [block_color]
-	JMP start_draw_block
-
-delete_back:
-	mov al, [backgroundcolor]
-	int 10h
-	inc dx
-	cmp dx, [block1_y]
-	JNE delete_back
-	sub [block1_y], 30
-	ret
-
-start_draw_block:
 
 	cmp bx, 1
-	JNE _2
-	mov dx, [block1_y]
-	add [block1_y], 30
-	mov cx, [block1_x]
+	JE _1
+	cmp bx, 2
+	JE _2
+	cmp bx, 3
+	JE _3
+	cmp bx, 4
+	JE _4
+;	cmp bx, 5
+;	JE _5
+
+delete_block:
+	int 10h
+	inc dx
+	cmp dx, [block_y]
+	JNE delete_block
+	sub dx, 30
+	cmp cx, 0
+	JE return
+	cmp [indicator], 00
+	JE delete_again
+	dec cx
+	cmp cx, [block_x]
+	JNE delete_block
+return:
+	ret
+delete_again:
+	dec cx
+	JMP delete_block
+
 _1:
-	int 10h
-	inc dx
-	cmp dx, [block1_y]
-	JNE _1
+	mov al, [backgroundcolor]
+	mov cx, [block1_x]
+	mov dx, [block1_y]
+	add dx, 30
+	mov [block_y], dx
 	sub dx, 30
-	sub cx, [block1len]
-	cmp cx, 0
-	JE l1
-	call delete_back
-l1:
+	mov bx, [block1len]
+start_loop:
+	mov [indicator], 00
+	sub cx, bx
+	mov [block_x], cx
+	add cx, bx
+	mov bh, 00h
+	call delete_block
+	mov [indicator], 1
+	call delete_block
 	ret
-	cmp bx,2
-	JNE _3
-	mov dx, [block2_y]
-	add [block2_y], 30
-	mov cx, [block2_x]
 _2:
-	int 10h
-	inc dx
-	cmp dx, [block2_y]
-	JNE _2
+	mov al, [backgroundcolor]
+	mov cx, [block2_x]
+	mov dx, [block2_y]
+	add dx, 30
+	mov [block_y], dx
 	sub dx, 30
-	sub cx, [block2len]
-	cmp cx, 0
-	JE l2
-	call delete_back
-l2:
-	ret
-	cmp bx,3
-	JNE _4
-	mov dx, [block3_y]
-	add [block3_y], 30
-	mov cx, [block3_x]
+	mov bx, [block2len]
+	JMP start_loop
 _3:
-	int 10h
-	inc dx
-	cmp dx, [block3_y]
-	JNE _4
+	mov al, [backgroundcolor]
+	mov cx, [block3_x]
+	mov dx, [block3_y]
+	add dx, 30
+	mov [block_y], dx
 	sub dx, 30
-	sub cx, [block3len]
-	cmp cx, 0
-	JE l3
-	call delete_back
-l3:
-	ret
-
-	cmp bx,4
-	JNE _5
-	mov dx, [block4_y]
-	add [block4_y], 30
-	mov cx, [block4_x]
+	mov bx, [block3len]
+	JMP start_loop
 _4:
-	int 10h
-	inc dx
-	cmp dx, [block4_y]
-	JNE _5
+	mov al, [backgroundcolor]
+	mov cx, [block4_x]
+	mov dx, [block4_y]
+	add dx, 30
+	mov [block_y], dx
 	sub dx, 30
-	sub cx, [block4len]
-	cmp cx, 0
-	JE l4
-	call delete_back
-l4:
-	ret
-
-	cmp bx,5
-	JNE _6
-	mov dx, [block5_y]
-	add [block5_y], 30
-	mov cx, [block5_x]
-_5:
-	int 10h
-	inc dx
-	cmp dx, [block5_y]
-	JNE _6
-	sub dx, 30
-	sub cx, [block5len]
-	cmp cx, 0
-	JE l5
-	call delete_back
-l5:
-	ret
-	cmp bx,6
-	mov dx, [block6_y]
-	add [block6_y], 30
-	mov cx, [block6_x]
-_6:
-	int 10h
-	inc dx
-	cmp dx, [block6_y]
-	JNE _6
-	sub dx, 30
-	sub cx, [block6len]
-	cmp cx, 0
-	JE l6
-	call delete_back
-l6:
-	ret
+	mov bx, [block4len]
+	JMP start_loop
 
 ENDP move_block
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC randommize				;;;randomize number between 1-bx
+PROC randommize				;;;randomize number between 1-bx at dx, [random_len]
 	mov ah,0h ;get system time
 	int 1ah
 	mov ax,dx
@@ -615,12 +466,12 @@ PROC multiply  ;;does ax times bx
 multy:
 	add ax, cx
 	dec bx
-	cmp bx, 0
+	cmp bx, 1
 	JNE multy
 	ret
 ENDP multiply
 
-PROC delay
+PROC delay		;;run until dx
 	push bx
 	mov bx, 0
 d:
