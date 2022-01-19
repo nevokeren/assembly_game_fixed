@@ -332,13 +332,31 @@ ENDP WaitForData
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC sort
-t1:		
+randomize_len:		
 		mov bx, 5
 		call randommize
-		mov ax, [random]
+		mov ax, [random_len]
 		mov bx, 11
 		call multiply
-		mov [block1len], al
+
+first_block:
+	mov bx, 1
+	mov [block1len], ax
+	cmp [block1_y], 00
+	JNE call_move_block
+cmpr1:
+	cmp [random], 1
+	JNE cmpr2
+	mov [block1_y], 50
+cmpr2:
+	cmp [random], 2
+	JNE cmpr3
+	mov [block1_y], 100
+cmpr3:
+	mov [block1_y], 150
+call_move_block:
+	inc [block1_x]
+	call move_block
 
 
 t7:
@@ -358,7 +376,7 @@ PROC move_block    ;;;move/jenerate block in chosen course
 	cmp bx, 3
 	JE _3
 	cmp bx, 4
-	JE _4
+;	JE _4
 ;	cmp bx, 5
 ;	JE _5
 
@@ -408,6 +426,7 @@ _2:
 	sub dx, 30
 	mov bx, [block2len]
 	JMP start_loop
+
 _3:
 	mov al, [backgroundcolor]
 	mov cx, [block3_x]
@@ -461,7 +480,7 @@ black:
 	JMP black
 ENDP break
 
-PROC multiply  ;;does ax times bx
+PROC multiply  ;;does ax times bx at ax
  	mov cx, ax
 multy:
 	add ax, cx
