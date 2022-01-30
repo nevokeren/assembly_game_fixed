@@ -87,53 +87,34 @@ color_background:
 	cmp cx, -1
 	JNE color_background
 
-;the upper line
-	mov cx, 320
+;the lines
+	mov bh, 0h
+	mov al, [linescolor]
+	mov ah, 0ch
+	JMP draw_upper_line
+draw_the_lines:
+	int 10h
+	dec cx
+	cmp cx, -1
+	JNE draw_the_lines
+	ret
+
 draw_upper_line:
-	mov bh, 0h
+	mov cx, 319
 	mov dx, [leftline]
-	mov al, [linescolor]
-	mov ah, 0ch
-	int 10h
-	dec cx
-	cmp cx, -1
-	JNE draw_upper_line
+	call draw_the_lines
 
-;the 1 middle line
-	mov cx, 320
-draw_middle_line1:
-	mov bh, 0h
+	mov cx, 319
 	mov dx, [middleline1]
-	mov al, [linescolor]
-	mov ah, 0ch
-	int 10h
-	dec cx
-	cmp cx, -1
-	JNE draw_middle_line1
+	call draw_the_lines
 
-;the 2 middle line
-	mov cx, 320
-draw_middle_line2:
-	mov bh, 0h
+	mov cx, 319
 	mov dx, [middleline2]
-	mov al, [linescolor]
-	mov ah, 0ch
-	int 10h
-	dec cx
-	cmp cx, -1
-	JNE draw_middle_line2
+	call draw_the_lines
 
-;the bottom line
-	mov cx, 320
-draw_bottom_line:
-	mov bh, 0h
+	mov cx, 319
 	mov dx, [bottomline]
-	mov al, [linescolor]
-	mov ah, 0ch
-	int 10h
-	dec cx
-	cmp cx, -1
-	JNE draw_bottom_line
+	call draw_the_lines
 
 ;create player in the middle
 create_the_player:
