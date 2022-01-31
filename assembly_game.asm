@@ -26,29 +26,36 @@ DATASEG
 	;mode
 		hard_mode dw 00
 	;blocks data
-		blocks_highest_x dw 00
-	;y's
-		max_block dw 00
-		block1_y dw 00	
-		block2_y dw 00
-		block3_y dw 00
-		block4_y dw 00
-		block5_y dw 00
-		block6_y dw 00
-	;x's
-		block1_x dw 00
-		block2_x dw 00
-		block3_x dw 00
-		block4_x dw 00
-		block5_x dw 00
-		block6_x dw 00
-	;lenses
-		block1len dw 00
-		block2len dw 00
-		block3len dw 00
-		block4len dw 00
-		block5len dw 00
-		block6len dw 00
+			blocks_highest_x dw 00
+		;y's
+			max_block dw 00
+			block1_y dw 00	
+			block2_y dw 00
+			block3_y dw 00
+			block4_y dw 00
+			block5_y dw 00
+			block6_y dw 00
+		;x's
+			block1_x dw 00
+			block2_x dw 00
+			block3_x dw 00
+			block4_x dw 00
+			block5_x dw 00
+			block6_x dw 00
+		;lenses
+			block1len dw 00
+			block2len dw 00
+			block3len dw 00
+			block4len dw 00
+			block5len dw 00
+			block6len dw 00
+		;existence
+			block1_e dw 00
+			block2_e dw 00
+			block3_e dw 00
+			block4_e dw 00
+			block5_e dw 00
+			block6_e dw 00
 	;randoms
 		random dw 00
 		random_len dw 00
@@ -280,7 +287,7 @@ ENDP move_up
 PROC WaitForData
 randstart:			;create randoms
 	mov bx, 3
-	call randommize
+	call randomize
 	mov ax, [random_len]
 	mov [random], ax
 
@@ -313,135 +320,102 @@ ENDP WaitForData
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC sort
-randomize_len:		
-		mov bx, 5
-		call randommize
-		mov ax, [random_len]
-		mov bx, 11
-		call multiply
-
 first_block:
-	mov bx, 1
+;check for existence
+	cmp [block1_e], 0
+	JNE block1_exist
+
+block1_n_exist:
+;set len
+	call randomize_len
+	mov ax, [random_len]
 	mov [block1len], ax
-	cmp [block1_y], 00
-	JNE call_move_block
-cmpr1:
+;set x, y
+	mov [block1_x], 00
 	cmp [random], 1
-	JNE cmpr2
+	JNE cmp1
 	mov [block1_y], 50
-cmpr2:
+cmp1:
 	cmp [random], 2
-	JNE cmpr3
+	JNE cmp2
 	mov [block1_y], 100
-cmpr3:
+cmp2:
 	mov [block1_y], 150
-call_move_block:
-	inc [block1_x]
+
+block1_exist:
+	mov bx, 1
 	call move_block
 
-
-t7:
-	ret
+ret
 ENDP sort
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC move_block    ;;;move/jenerate block in chosen course
-	mov ah, 0ch
-	mov bh, 00h
-
 	cmp bx, 1
-	JE _1
-	cmp bx, 2
-	JE _2
-	cmp bx, 3
-	JE _3
-	cmp bx, 4
-;	JE _4
-;	cmp bx, 5
-;	JE _5
+	JE move_first_block:
 
-delete_block:
+delete:
+	push cx
+	mov al, [backgroundcolor]
+	mov ah, 0ch
+	mov bh, 00
+start_delete:
 	int 10h
-	inc dx
-	cmp dx, [block_y]
-	JNE delete_block
-	sub dx, 30
-	cmp cx, 0
-	JE return
-	cmp [indicator], 00
-	JE delete_again
 	dec cx
 	cmp cx, [block_x]
-	JNE delete_block
-return:
+	JNE start_delete
+	pop cx
+	push cx
+	inc dx
+	cmp dx, [block_y]
+	JNE start_delete
+	pop cx
 	ret
-delete_again:
-	dec cx
-	JMP delete_block
 
-_1:
-	mov al, [backgroundcolor]
+	
+move_first_block:
+	cmp [block1_e], 00
+	JE not_exist1
 	mov cx, [block1_x]
 	mov dx, [block1_y]
-	add dx, 30
-	mov [block_y], dx
-	sub dx, 30
-	mov bx, [block1len]
-start_loop:
-	mov [indicator], 00
-	sub cx, bx
+
+	push cx
+	sub cx, [block1len]
 	mov [block_x], cx
-	add cx, bx
-	mov bh, 00h
-	call delete_block
-	mov [indicator], 1
-	call delete_block
-	ret
-_2:
-	mov al, [backgroundcolor]
-	mov cx, [block2_x]
-	mov dx, [block2_y]
-	add dx, 30
-	mov [block_y], dx
-	sub dx, 30
-	mov bx, [block2len]
-	JMP start_loop
+	cmp [block_x], 0
+	JNL next1
+	mov [block_x], 0
+next1:
+	pop cx
 
-_3:
-	mov al, [backgroundcolor]
-	mov cx, [block3_x]
-	mov dx, [block3_y]
+	push dx
 	add dx, 30
 	mov [block_y], dx
-	sub dx, 30
-	mov bx, [block3len]
-	JMP start_loop
-_4:
-	mov al, [backgroundcolor]
-	mov cx, [block4_x]
-	mov dx, [block4_y]
-	add dx, 30
-	mov [block_y], dx
-	sub dx, 30
-	mov bx, [block4len]
-	JMP start_loop
+	pop dx
+	call delete
 
+not_exist1:
 ENDP move_block
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC randommize				;;;randomize number between 1-bx at dx, [random_len]
-	mov ah,0h ;get system time
+PROC randomize_len				;;;randomize number between 1-bx at dx, [random_len]
+	mov ah, 0h 	;get system time
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, bx
-	div cx ;  dx contains the remain of the cx devided by bx (from 0 to bx)
-	add dx,1
-	mov [random_len], dx
+	mov cx, 5
+	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 4)
+	add dx, 1
+
+	mov bx, 10
+	mov ax, dx
+	call multiply
+	mov [random_len], ax
 	ret
-ENDP randommize
+ENDP randomize_len
 
 PROC break
 	mov ah, 0ch
