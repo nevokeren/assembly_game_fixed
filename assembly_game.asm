@@ -9,9 +9,8 @@ DATASEG
 	;colors
 		linescolor db 15
 		backgroundcolor db 8
-		block_color db 180
-
-		first_block_array db 't',  'n'
+		block_color db 46
+		
 	;player data
 		player db 1
 		player_y dw 110
@@ -22,8 +21,12 @@ DATASEG
 		bottomline dw 190
 	;loop data
 		loop_ dw 00
-		loop2_ dw 00
-		progress dw 00
+		loop2_ db 00
+		progress dw 10000
+	;print data
+		units db 00
+		dozens db 00
+		hundbreds db 00
 
 
 	;mode
@@ -222,6 +225,11 @@ delete1:
 	push [loop_]
 
 	call sort
+	push dx
+
+	mov dx, 60000
+	call delay
+	pop dx
 
 	pop [loop_]
 	pop cx
@@ -275,6 +283,11 @@ delete:
 	push [loop_]
 	
 	call sort
+	push dx
+
+	mov dx, 60000
+	call delay
+	pop dx
 
 	pop [loop_]
 	pop cx
@@ -310,10 +323,16 @@ next:
 	call move_down
 
 main:
-	cmp [loop2_], 50
+	push ax
+	mov ax, [progress]
+	mov bl, 2
+	div bl 
+	cmp [loop2_], al
+	pop ax
 	JNE WaitForData
 	mov [loop2_], 00
 	call sort
+	;call print_score
 	JMP WaitForData
 ENDP WaitForData
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -355,12 +374,12 @@ block1_exist:
 	mov bx, 1
 	call move_block
 ;	ret
-mov dx, 10000
+mov dx, 50000
 call delay
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 second_block:
-mov dx, 7500
+mov dx, 50000
 call delay
 call randomize_course
 
@@ -387,22 +406,23 @@ call randomize_course
 ;set y
 	cmp [random], 1
 	JNE cmp3
-	mov [block2_y], 100
+	mov [block2_y], 50
 	JMP block1_exist
 cmp3:
 	cmp [random], 2
 	JNE cmp4
-	mov [block2_y], 150
+	mov [block2_y], 100
 	JMP block2_exist
 cmp4:
-	mov [block2_y], 50
+	mov [block2_y], 150
 
 block2_exist:
 	call move_block
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 third_block:
-mov dx, 7500
+mov dx, 50000
 call delay
+
 call randomize_course
 	mov bx, 3
 	cmp [block3_e], 00
@@ -427,22 +447,22 @@ set_len:
 ;set y
 	cmp [random], 1
 	JNE cmp5
-	mov [block3_y], 150
+	mov [block3_y], 50
 	JMP block3_exist
 cmp5:
 	cmp [random], 2
 	JNE cmp6
-	mov [block3_y], 50
+	mov [block3_y], 100
 	JMP block3_exist
 cmp6:
-	mov [block3_y], 100
+	mov [block3_y], 150
 
 block3_exist:	
 	call move_block
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 fourth_block:
-mov dx, 7500
+mov dx, 5000
 call delay
 call randomize_course
 	mov bx, 4
@@ -453,7 +473,7 @@ call randomize_course
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 150
+	mov cx, 450
 	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
 	add dx, 1
 	cmp dx, 2
@@ -468,12 +488,12 @@ set_len2:
 ;set y
 	cmp [random], 1
 	JNE cmp7
-	mov [block4_y], 100
+	mov [block4_y], 50
 	JMP block4_exist
 cmp7:
 	cmp [random], 2
 	JNE cmp8
-	mov [block4_y], 50
+	mov [block4_y], 100
 	JMP block4_exist
 cmp8:
 	mov [block4_y], 150
@@ -483,6 +503,34 @@ block4_exist:
 ret	
 ENDP sort
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+PROC print_score
+	mov ax, [progress]
+
+	mov bl, 100
+	div bl
+	mov [hundbreds], al
+	xor al, al
+	mov bl, 10
+	div bl
+	mov [dozens], al
+	mov [units], ah
+
+	mov [units], 0
+
+	add [units], 48
+	add [dozens], 48
+	add [hundbreds], 48
+
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 2h ; row
+	mov dl, 2h ; column
+	int 10h
+
+	mov ah, 02h ; write string to standart output
+	lea dx, [units]
+	int 21h
+ENDP print_score
 
 PROC draw_block
 	mov al, [backgroundcolor]
@@ -506,6 +554,7 @@ draw_in_range:
 	cmp [block_end], 319
 	JNE cnte
 	mov bx, 8
+	dec [progress]
 	ret
 cnte:
 	JMP delete_block
@@ -537,6 +586,7 @@ next_range:
 	cmp [block_len], 0
 	JNE draw_in_range
 	mov bx, 8
+	inc [progress]
 	ret
 x:
 	add [block_x], 1
@@ -657,9 +707,9 @@ PROC randomize_len				;;;randomize number between 1-bx at dx, [random_len]
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 5
+	mov cx, 60
 	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 4)
-	add dx, 1
+	add dx, 70
 	mov [random_len], dx
 	ret
 ENDP randomize_len
@@ -692,6 +742,7 @@ black:
 	cmp cx, 320
 	JNE black
 	JMP black
+
 ENDP break
 
 PROC multiply  ;;does ax times bx at ax
