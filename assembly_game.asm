@@ -9,7 +9,9 @@ DATASEG
 	;colors
 		linescolor db 15
 		backgroundcolor db 8
-		block_color db 6
+		block_color db 180
+
+		first_block_array db 't',  'n'
 	;player data
 		player db 1
 		player_y dw 110
@@ -20,9 +22,10 @@ DATASEG
 		bottomline dw 190
 	;loop data
 		loop_ dw 00
+		loop2_ dw 00
 		progress dw 00
-		block_y dw 00
-		block_x dw, 00
+
+
 	;mode
 		hard_mode dw 00
 	;blocks data
@@ -36,12 +39,12 @@ DATASEG
 			block5_y dw 00
 			block6_y dw 00
 		;x's
-			block1_x dw 00
-			block2_x dw 00
-			block3_x dw 00
-			block4_x dw 00
-			block5_x dw 00
-			block6_x dw 00
+			block1_x dw 1
+			block2_x dw 1
+			block3_x dw 1
+			block4_x dw 1
+			block5_x dw 1
+			block6_x dw 1
 		;lenses
 			block1len dw 00
 			block2len dw 00
@@ -56,6 +59,12 @@ DATASEG
 			block4_e dw 00
 			block5_e dw 00
 			block6_e dw 00
+		;general
+		block_y dw 00
+		block_x dw, 00
+		block_len dw 00
+		block_end dw 00
+		block_lower dw 00
 	;randoms
 		random dw 00
 		random_len dw 00
@@ -77,7 +86,6 @@ start:
 call base_color
 
 JMP WaitForData
-
 PROC base_color
 	mov cx, 320
 	mov al, [backgroundcolor]
@@ -141,47 +149,36 @@ color_player:
 	JNE color_player
 	ret
 ENDP base_color
-
-
 PROC eliminate
-	cmp [block1_x] , 295
-	JE t
+	mov cx, [player_y]
+	sub cx, 10
+	cmp [block1_x], 295
+	JNE next_checkout1
+	cmp [block1_y], cx
+	JNE next_checkout1
+	call break
+next_checkout1:
 	cmp [block2_x], 295
-	JE t
-	cmp [block3_x], 295 
-	JE t
+	JNE next_checkout2
+	cmp [block2_y], cx
+	JNE next_checkout2
+	call break
+next_checkout2:
+	cmp [block3_x], 295
+	JNE next_checkout3
+	cmp [block3_y], cx
+	JNE next_checkout3
+	call break
+next_checkout3:
 	cmp [block4_x], 295
-	JE t
-	cmp [block5_x], 295
-	JE t
-	cmp [block6_x], 295
-	JE t
-	ret
-t:
-	mov dx, [player_y]
-	cmp [block1_y], dx
-	JNE r
+	JNE next_checkout4
+	cmp [block4_y], cx
+	JNE next_checkout4
 	call break
-	cmp [block2_y], dx
-	JNE r
-	call break
-	cmp [block3_y], dx
-	JNE r
-	call break
-	cmp [block4_y], dx
-	JNE r
-	call break
-	cmp [block5_y], dx
-	JNE r
-	call break
-	cmp [block6_y], dx
-	JNE r
-	call break
-r:
+next_checkout4:
 	ret
 ENDP eliminate
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 PROC move_down   ; move down
 	mov bh, 00h
 	mov cx, 300
@@ -221,18 +218,20 @@ delete1:
 
 ;;;delay
 	push dx
-	mov dx, 7500
-	call delay
-	pop dx
+	push cx
+	push [loop_]
 
+	call sort
+
+	pop [loop_]
+	pop cx
+	pop dx
 	cmp dx, [loop_]
 	JNE color1
 	ret
 	
 ENDP move_down
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 PROC move_up   ; move up
 	mov bh, 00h
 	mov cx, 300
@@ -272,27 +271,25 @@ delete:
 
 ;;;delay
 	push dx
-	mov dx, 7500
-	sub dx, 10
-	call delay
+	push cx
+	push [loop_]
+	
+	call sort
+
+	pop [loop_]
+	pop cx
 	pop dx
 
 	cmp dx, [loop_]
 	JNE color
 	ret
 ENDP move_up
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 PROC WaitForData
-randstart:			;create randoms
-	mov bx, 3
-	call randomize
-	mov ax, [random_len]
-	mov [random], ax
+	call eliminate
+	add [loop2_], 1
 
 wait_:					;wait for data
-	call eliminate
 	mov  ah, 01h
 	int  16h
 	JZ main
@@ -313,92 +310,346 @@ next:
 	call move_down
 
 main:
+	cmp [loop2_], 50
+	JNE WaitForData
+	mov [loop2_], 00
 	call sort
 	JMP WaitForData
 ENDP WaitForData
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 PROC sort
 first_block:
-;check for existence
-	cmp [block1_e], 0
+	cmp [block1_e], 00
 	JNE block1_exist
+	call randomize_course
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 50
+	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	add dx, 1
+	cmp dx, 2
+	JNE second_block
 
-block1_n_exist:
 ;set len
+	mov [block1_e], 1
 	call randomize_len
 	mov ax, [random_len]
 	mov [block1len], ax
-;set x, y
-	mov [block1_x], 00
+
+;set y
 	cmp [random], 1
 	JNE cmp1
 	mov [block1_y], 50
+	JMP block1_exist
 cmp1:
 	cmp [random], 2
 	JNE cmp2
 	mov [block1_y], 100
+	JMP block1_exist
 cmp2:
 	mov [block1_y], 150
 
 block1_exist:
 	mov bx, 1
 	call move_block
+;	ret
+mov dx, 10000
+call delay
 
-ret
+;;;;;;;;;;;;;;;;;;;;;;;;;
+second_block:
+mov dx, 7500
+call delay
+call randomize_course
+
+	mov bx, 2
+	cmp [block2_e], 00
+	JNE block2_exist
+
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 150
+	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	add dx, 1
+	cmp dx, 2
+	JNE third_block
+
+;set len
+	mov [block2_e], 1
+	call randomize_len
+	mov ax, [random_len]
+	mov [block2len], ax
+
+;set y
+	cmp [random], 1
+	JNE cmp3
+	mov [block2_y], 100
+	JMP block1_exist
+cmp3:
+	cmp [random], 2
+	JNE cmp4
+	mov [block2_y], 150
+	JMP block2_exist
+cmp4:
+	mov [block2_y], 50
+
+block2_exist:
+	call move_block
+;;;;;;;;;;;;;;;;;;;;;;;;;
+third_block:
+mov dx, 7500
+call delay
+call randomize_course
+	mov bx, 3
+	cmp [block3_e], 00
+	JNE block3_exist
+
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 150
+	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	add dx, 1
+	cmp dx, 2
+	JE set_len
+
+set_len:
+	mov [block3_e], 1
+	call randomize_len
+	mov ax, [random_len]
+	mov [block3len], ax
+
+;set y
+	cmp [random], 1
+	JNE cmp5
+	mov [block3_y], 150
+	JMP block3_exist
+cmp5:
+	cmp [random], 2
+	JNE cmp6
+	mov [block3_y], 50
+	JMP block3_exist
+cmp6:
+	mov [block3_y], 100
+
+block3_exist:	
+	call move_block
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+fourth_block:
+mov dx, 7500
+call delay
+call randomize_course
+	mov bx, 4
+	cmp [block4_e], 00
+	JNE block4_exist
+
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 150
+	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	add dx, 1
+	cmp dx, 2
+	JE set_len
+
+set_len2:
+	mov [block4_e], 1
+	call randomize_len
+	mov ax, [random_len]
+	mov [block4len], ax
+
+;set y
+	cmp [random], 1
+	JNE cmp7
+	mov [block4_y], 100
+	JMP block4_exist
+cmp7:
+	cmp [random], 2
+	JNE cmp8
+	mov [block4_y], 50
+	JMP block4_exist
+cmp8:
+	mov [block4_y], 150
+
+block4_exist:	
+	call move_block
+ret	
 ENDP sort
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-PROC move_block    ;;;move/jenerate block in chosen course
-	cmp bx, 1
-	JE move_first_block:
-
-delete:
-	push cx
+PROC draw_block
 	mov al, [backgroundcolor]
 	mov ah, 0ch
 	mov bh, 00
-start_delete:
+	mov [loop_], 00
+;set x,y
+draw_in_range:
+	mov cx, [block_x]
+	mov dx, [block_y]
+	add dx, 30
+	mov [block_lower], dx
+	sub dx, 30
+
+	push cx
+	sub cx, [block_len]
+	cmp cx, 00
+	JL lower_then_0
+	mov [block_end], cx
+	pop cx
+	cmp [block_end], 319
+	JNE cnte
+	mov bx, 8
+	ret
+cnte:
+	JMP delete_block
+
+lower_then_0:
+	mov [block_end], 00
+	pop cx
+
+delete_block:
 	int 10h
 	dec cx
-	cmp cx, [block_x]
-	JNE start_delete
-	pop cx
-	push cx
+	cmp cx, [block_end]
+	JNE delete_block
+	mov cx, [block_x]
 	inc dx
-	cmp dx, [block_y]
-	JNE start_delete
-	pop cx
+	cmp dx, [block_lower]
+	JNE delete_block
+	cmp [loop_], 00
+	JE next_range
+	mov [loop_], 00
+	ret
+next_range:
+;set x,y,color
+	mov al, [block_color]
+	mov [loop_], 1
+	cmp [block_x], 319
+	JNE x
+	sub [block_len], 1
+	cmp [block_len], 0
+	JNE draw_in_range
+	mov bx, 8
+	ret
+x:
+	add [block_x], 1
+	JMP draw_in_range
+ENDP draw_block
+
+PROC move_block    ;;;move/jenerate block in chosen course
+	cmp bx, 1
+	JE  move_first_block
+	cmp bx, 2
+	JE move_second_block
+	cmp bx, 3
+	JE  move_third_block
+	JMP move_fourth_block
+	ret
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+move_first_block:
+	mov cx, [block1_x]
+	mov [block_x], cx
+
+	mov cx, [block1_y]
+	mov [block_y], cx
+
+	mov cx, [block1len]
+	mov [block_len], cx
+
+	call draw_block
+
+	mov dx, [block_len]
+	mov [block1len], dx
+	mov cx, [block_x]
+	mov [block1_x], cx
+	cmp bx, 8
+	JNE return1
+	mov [block1_e], 00
+	mov [block1_x], 01
+
+return1:
+	ret
+;;;;;;;;;;;;;
+move_second_block:
+	mov cx, [block2_x]
+	mov [block_x], cx
+
+	mov cx, [block2_y]
+	mov [block_y], cx
+
+	mov cx, [block2len]
+	mov [block_len], cx
+
+	call draw_block
+
+	mov dx, [block_len]
+	mov [block2len], dx
+	mov cx, [block_x]
+	mov [block2_x], cx
+	cmp bx, 8
+	JNE return2
+	mov [block2_e], 00
+	mov [block2_x], 01
+
+return2:
+	ret
+;;;;;;;;;;;;;
+move_third_block:
+	mov cx, [block3_x]
+	mov [block_x], cx
+
+	mov cx, [block3_y]
+	mov [block_y], cx
+
+	mov cx, [block3len]
+	mov [block_len], cx
+
+	call draw_block
+
+	mov dx, [block_len]
+	mov [block3len], dx
+	mov cx, [block_x]
+	mov [block3_x], cx
+	cmp bx, 8
+	JNE return3
+	mov [block3_e], 00
+	mov [block3_x], 01
+
+return3:
+	ret
+;;;;;;;;;;;;;
+move_fourth_block:
+	mov cx, [block4_x]
+	mov [block_x], cx
+
+	mov cx, [block4_y]
+	mov [block_y], cx
+
+	mov cx, [block4len]
+	mov [block_len], cx
+
+	call draw_block
+
+	mov dx, [block_len]
+	mov [block4len], dx
+	mov cx, [block_x]
+	mov [block4_x], cx
+	cmp bx, 8
+	JNE return4
+	mov [block4_e], 00
+	mov [block4_x], 01
+
+return4:
 	ret
 
-	
-move_first_block:
-	cmp [block1_e], 00
-	JE not_exist1
-	mov cx, [block1_x]
-	mov dx, [block1_y]
-
-	push cx
-	sub cx, [block1len]
-	mov [block_x], cx
-	cmp [block_x], 0
-	JNL next1
-	mov [block_x], 0
-next1:
-	pop cx
-
-	push dx
-	add dx, 30
-	mov [block_y], dx
-	pop dx
-	call delete
-
-not_exist1:
 ENDP move_block
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 PROC randomize_len				;;;randomize number between 1-bx at dx, [random_len]
@@ -409,14 +660,22 @@ PROC randomize_len				;;;randomize number between 1-bx at dx, [random_len]
 	mov cx, 5
 	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 4)
 	add dx, 1
-
-	mov bx, 10
-	mov ax, dx
-	call multiply
-	mov [random_len], ax
+	mov [random_len], dx
 	ret
 ENDP randomize_len
 
+PROC randomize_course
+randstart:			;create randoms
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 3
+	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	add dx, 1
+	mov [random], dx
+	ret
+	ENDP randomize_course
 PROC break
 	mov ah, 0ch
 	mov bl, 00h
@@ -455,7 +714,6 @@ d:
 	pop bx
 	ret
 ENDP delay
-
 exit:
 	mov ax, 4c00h
 	int 21h
