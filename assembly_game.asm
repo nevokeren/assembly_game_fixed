@@ -90,7 +90,7 @@ DATASEG
 		dozens db 00
 		hundbreds db 00
 	;mode
-		hard_mode dw 0
+		hard_mode dw 00
 	;blocks data
 			blocks_highest_x dw 00
 		;y's
@@ -348,8 +348,8 @@ PROC move_up   ; move up
 	mov [loop_], dx
 	sub [loop_], 22
 mov_up:
-	mov dx, [player_y]
-	mov cx, 295
+mov dx, [player_y]
+mov cx, 295
 	mov [loop2_], dx
 	add [loop2_], 29
 
@@ -501,14 +501,14 @@ wait_:					;wait for data
 	
 	cmp ah, 48h
 	JNE next
-	cmp [player_y], 51
+	cmp [player_y], 60
 	JE sort_the_game
 	call move_up
 	JMP sort_the_game
 next:
 	cmp ah, 50h
 	JNE sort_the_game
-	cmp [player_y], 151
+	cmp [player_y], 160
 	JE sort_the_game
 	call move_down
 
@@ -540,7 +540,7 @@ first_block:
 ;set len
 	mov [block1_e], 1
 	call randomize_len
-;	mov ax, [random_len]
+	mov ax, [random_len]
 	mov [block1len], ax
 
 ;set y
@@ -904,7 +904,7 @@ PROC randomize_len				;;;randomize number between 1-bx at dx, [random_len]
 	xor dx,dx
 	mov cx, 5
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
-	add dx, 2
+	add dx, 70
 	mov [random_len], dx
 	ret
 hard_mode_len:
