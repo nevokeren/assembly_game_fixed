@@ -132,10 +132,9 @@ DATASEG
 		random dw 00
 		random_len dw 00
 	;indicators
-		indicator dw 00
-	
-
-
+		indicator1 dw 00
+		indicator2 dw, 00
+		len dw 00
 CODESEG
 
 start:
@@ -145,7 +144,7 @@ start:
 ;set grafic mode
 	mov ax, 13h
 	int 10h
-
+start_the_game:
 call base_color
 
 JMP main
@@ -229,7 +228,7 @@ not_color:
 ENDP base_color
 PROC eliminate
 	mov cx, [player_y]
-	sub cx, 10
+	sub cx, 1
 	cmp [block1_x], 295
 	JNE next_checkout1
 	cmp [block1_y], cx
@@ -418,74 +417,6 @@ not_color1:
 	add bx, 1
 	JMP color_player1
 
-; 	mov bh, 00h
-; 	mov cx, 295
-; 	mov ah, 0ch
-; 	mov dx, [player_y]
-	
-; 	mov [loop_], dx
-; 	add [loop_], 29
-
-; delete_player:
-; 	mov al, [backgroundcolor]
-; 	int 10h
-; 	inc cx
-; 	cmp cx, 307
-; 	JNE delete_player
-; continue_deleting:
-; 	mov cx, 295
-; 	inc dx
-; 	cmp dx, [loop_]
-; 	JNE delete_player
-
-; create_the_player1:
-; 	mov cx, 295
-; 	dec [player_y]
-; 	mov dx, [player_y]
-; 	mov [loop_], dx
-; 	sub [loop_], 50
-; 	mov bh, 00h
-; 	mov bx, offset player_grafics_upwards
-; 	mov ah, 0ch
-; color_player1:
-; 	mov al, [bx]
-; 	cmp al, 's'
-; 	JNE continue_check1
-; 	push [loop_]
-; 	push dx
-; 	push cx
-; 	push ax
-; 	push bx
-
-; 	call sort
-
-; 	 pop bx
-; 	 pop ax
-; 	 pop cx
-; 	 pop dx
-; 	 pop [loop_]
-
-; 	cmp [loop_], 0
-; 	JNE move_up
-; 	ret
-; continue_check1:
-; 	cmp al, 't'
-; 	JNE draw_player1
-; 	inc cx
-; 	add bx, 1
-; 	JMP color_player1
-; draw_player1:
-; 	cmp al, 'n'
-; 	JNE not_color1
-; 	mov cx, 295
-; 	inc dx
-; 	add bx, 1
-; 	JMP color_player1
-; not_color1:
-; 	int 10h
-; 	inc cx
-; 	add bx, 1
-; 	JMP color_player1
 ENDP move_up
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 PROC main
@@ -501,14 +432,14 @@ wait_:					;wait for data
 	
 	cmp ah, 48h
 	JNE next
-	cmp [player_y], 60
+	cmp [player_y], 51
 	JE sort_the_game
 	call move_up
 	JMP sort_the_game
 next:
 	cmp ah, 50h
 	JNE sort_the_game
-	cmp [player_y], 160
+	cmp [player_y], 151
 	JE sort_the_game
 	call move_down
 
@@ -524,6 +455,7 @@ ENDP main
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 PROC sort
 first_block:
+	mov bx, 1
 	cmp [block1_e], 00
 	JNE block1_exist
 	call randomize_course
@@ -531,10 +463,10 @@ first_block:
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 50
+	mov cx, 65500
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 	add dx, 1
-	cmp dx, 2
+	cmp dx, 25673
 	JNE second_block
 
 ;set len
@@ -557,19 +489,19 @@ cmp2:
 	mov [block1_y], 150
 
 block1_exist:
-	mov bx, 1
+	
 	call move_block
-;	ret
 mov dx, [speed]
 call delay
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 second_block:
+mov bx, 2
 mov dx, [speed]
 call delay
 call randomize_course
 
-	mov bx, 2
+	
 	cmp [block2_e], 00
 	JNE block2_exist
 
@@ -580,7 +512,7 @@ call randomize_course
 	mov cx, 150
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 	add dx, 1
-	cmp dx, 2
+	cmp dx, 150
 	JNE third_block
 
 ;set len
@@ -622,7 +554,7 @@ call randomize_course
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 	add dx, 1
 	cmp dx, 2
-	JE set_len
+	JNE fourth_block
 
 set_len:
 	mov [block3_e], 1
@@ -740,7 +672,6 @@ draw_in_range:
 	cmp [block_end], 319
 	JNE cnte
 	mov bx, 8
-;	mov [speed], 50
 	ret
 cnte:
 	JMP delete_block
@@ -748,7 +679,6 @@ cnte:
 lower_then_0:
 	mov [block_end], 00
 	pop cx
-
 delete_block:
 	int 10h
 	dec cx
@@ -768,7 +698,7 @@ next_range:
 	mov [loop_], 1
 	cmp [block_x], 319
 	JNE x
-	sub [block_len], 1
+	dec [block_len]
 	cmp [block_len], 0
 	JNE draw_in_range
 	mov bx, 8
@@ -902,7 +832,7 @@ PROC randomize_len				;;;randomize number between 1-bx at dx, [random_len]
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 5
+	mov cx, 80
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
 	add dx, 70
 	mov [random_len], dx
@@ -921,46 +851,50 @@ ENDP randomize_len
 
 PROC randomize_course
 randstart:			;create randoms
-	cmp [random], 1
-	JNE check_next_course
 	mov ah, 0h 	;get system time
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 2
-	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
-	add dx, 2
-	mov [random], dx
-	ret
-check_next_course:
-	cmp [random], 2
-	JNE random_is_3
-	mov ah, 0h 	;get system time
-	int 1ah
-	mov ax,dx
-	xor dx,dx
-	mov cx, 2
-	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
-;	add dx, 2
-	cmp dx, 0
-	JNE random_is_2
-	inc dx
-	mov [random], dx
-	ret
-random_is_2:
-	add dx, 2
-	mov [random], dx
-	ret
-random_is_3:
-	mov ah, 0h 	;get system time
-	int 1ah
-	mov ax,dx
-	xor dx,dx
-	mov cx, 2
+	mov cx, 3
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 	add dx, 1
 	mov [random], dx
+
+	cmp dx, 3
+	JE random_is3
+	cmp dx, 2
+	JE random_is2
+random_is1:
+	mov bh, 0h
+	mov ah, 0Dh
+	mov cx, 0
+	mov dx, 70
+	int 10h
+	cmp al, [block_color]
+	JE randstart
+
 	ret
+random_is2:
+	mov bh, 00h
+	mov ah, 0dh
+	mov cx, 0
+	mov dx, 120
+	int 10h
+	cmp al, [block_color]
+	JE randstart
+
+	ret
+random_is3:
+	mov bh, 00h
+	mov ah, 0dh
+	mov cx, 0
+	mov dx, 170
+	int 10h
+	cmp al, [block_color]
+	JE randstart
+
+	ret
+
 	ENDP randomize_course
 PROC break
 	mov ah, 0ch
