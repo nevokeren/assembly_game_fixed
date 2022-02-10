@@ -16,14 +16,44 @@ DATASEG
 								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
 								db 55, 55, 0, 0, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
 								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 0, 0, 0, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 15, 15, 15, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
 								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
 								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
 								db 55, 55, 0, 55, 55, 55, 55, 55, 55 ,55, 4, 4, 'n'
 								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 0, 0, 0, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 15, 15, 15, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 0 ,55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 't', 4, 4, 4, 4, 4, 4,4, 4, 4, 4, 't', 'n'
+								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't','n' 
+								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 24, 't', 'n' 
+								db 't', 't', 't', 't', 't', 't', 't', 't', 24, 24, 24, 't', 's'
+
+		player_grafics_downward db 't', 't', 't', 't', 't', 't', 't', 't', 24, 24, 24, 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 24, 't', 'n' 
+								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't','n'  
+								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
+								db 't', 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 't', 'n'
+								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 0, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55 ,55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
 								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
 								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
 								db 55, 55, 0, 0 ,55, 55, 55, 55, 55, 55, 4, 4, 'n'
@@ -46,7 +76,7 @@ DATASEG
 		player db 1
 		player_y dw 101
 	;lines
-		leftline dw 40
+		upperline dw 40
 		middleline1 dw 90
 		middleline2 dw 140
 		bottomline dw 190
@@ -60,7 +90,7 @@ DATASEG
 		dozens db 00
 		hundbreds db 00
 	;mode
-		hard_mode dw 00
+		hard_mode dw 0
 	;blocks data
 			blocks_highest_x dw 00
 		;y's
@@ -118,7 +148,7 @@ start:
 
 call base_color
 
-JMP WaitForData
+JMP main
 PROC base_color
 	mov cx, 320
 	mov al, [backgroundcolor]
@@ -149,7 +179,7 @@ draw_the_lines:
 
 draw_upper_line:
 	mov cx, 319
-	mov dx, [leftline]
+	mov dx, [upperline]
 	call draw_the_lines
 
 	mov cx, 319
@@ -229,59 +259,84 @@ ENDP eliminate
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 PROC move_down   ; move down
 	mov bh, 00h
-	mov cx, 300
+	mov cx, 295
 	mov ah, 0ch
 	mov dx, [player_y]
-	add [player_y], 50
 	mov [loop_], dx
-	add [loop_], 60
+	add [loop_], 78
+mov_down:
+mov dx, [player_y]
+mov cx, 295
+	mov [loop2_], dx
+	add [loop2_], 29
 
-color1:
-	mov al, [player]
-	int 10h
-	dec cx
-	cmp cx, 295
-	JNE color1
-	mov cx, 300
-	sub dx, 10
-	cmp dx, 90
-	JE delete_line1
-	cmp dx, 140
-	JE delete_line1
-	mov al, [backgroundcolor]
-	JMP delete1
-
-delete_line1:
+delete_player1:
 	mov al, [linescolor]
-
-delete1:
+	cmp dx, [middleline2]
+	JE normal_delete
+	cmp dx, [middleline1]
+	JE normal_delete
+	mov al, [backgroundcolor]
+normal_delete:
+	
 	int 10h
-	dec cx
-	cmp cx, 295
-	JNE delete1
+	inc cx
+	cmp cx, 307
+	JNE delete_player1
+continue_deleting1:
+	mov cx, 295
+	inc dx
+	cmp dx, [loop2_]
+	JNE delete_player1
 
-;;;line down
-	add dx, 11
-	mov cx, 300
+create_the_player2:
+	mov cx, 295
+	inc [player_y]
+	mov dx, [player_y]
 
-;;;delay
+	mov bh, 00h
+	mov bx, offset player_grafics_downward
+	mov ah, 0ch
+color_player2:
+	mov al, [bx]
+	cmp al, 's'
+	JNE continue_check2
+	push [loop_]
 	push dx
 	push cx
-	push [loop_]
+	push ax
+	push bx
 
 	call sort
-	push dx
 
-	mov dx, 65000
-	call delay
-	pop dx
-
-	pop [loop_]
-	pop cx
-	pop dx
-	cmp dx, [loop_]
-	JNE color1
+	 pop bx
+	 pop ax
+	 pop cx
+	 pop dx
+	 pop [loop_]
+	cmp [loop_], dx
+	JNE mov_down
 	ret
+continue_check2:
+	cmp al, 't'
+	JNE draw_player2
+	inc cx
+	add bx, 1
+	JMP color_player2
+draw_player2:
+	cmp al, 'n'
+	JNE not_color2
+	mov cx, 295
+	inc dx
+	add bx, 1
+	JMP color_player2
+not_color2:
+	int 10h
+	inc cx
+	add bx, 1
+	JMP color_player2
+
+
 	
 ENDP move_down
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -290,12 +345,22 @@ PROC move_up   ; move up
 	mov cx, 295
 	mov ah, 0ch
 	mov dx, [player_y]
-;	sub [player_y], 50	
 	mov [loop_], dx
-	add [loop_], 29
+	sub [loop_], 22
+mov_up:
+	mov dx, [player_y]
+	mov cx, 295
+	mov [loop2_], dx
+	add [loop2_], 29
 
 delete_player:
+	mov al, [linescolor]
+	cmp dx, [middleline2]
+	JE normal_delete1
+	cmp dx, [middleline1]
+	JE normal_delete1
 	mov al, [backgroundcolor]
+normal_delete1:
 	int 10h
 	inc cx
 	cmp cx, 307
@@ -303,13 +368,14 @@ delete_player:
 continue_deleting:
 	mov cx, 295
 	inc dx
-	cmp dx, [loop_]
+	cmp dx, [loop2_]
 	JNE delete_player
 
 create_the_player1:
 	mov cx, 295
+	dec [player_y]
 	mov dx, [player_y]
-	dec dx
+
 	mov bh, 00h
 	mov bx, offset player_grafics_upwards
 	mov ah, 0ch
@@ -317,6 +383,21 @@ color_player1:
 	mov al, [bx]
 	cmp al, 's'
 	JNE continue_check1
+	push [loop_]
+	push dx
+	push cx
+	push ax
+	push bx
+
+	call sort
+
+	 pop bx
+	 pop ax
+	 pop cx
+	 pop dx
+	 pop [loop_]
+	cmp [loop_], dx
+	JNE mov_up
 	ret
 continue_check1:
 	cmp al, 't'
@@ -335,48 +416,111 @@ not_color1:
 	int 10h
 	inc cx
 	add bx, 1
-;	JMP color_player1
-	dec dx
-	mov [player_y], dx
 	JMP color_player1
 
+; 	mov bh, 00h
+; 	mov cx, 295
+; 	mov ah, 0ch
+; 	mov dx, [player_y]
+	
+; 	mov [loop_], dx
+; 	add [loop_], 29
+
+; delete_player:
+; 	mov al, [backgroundcolor]
+; 	int 10h
+; 	inc cx
+; 	cmp cx, 307
+; 	JNE delete_player
+; continue_deleting:
+; 	mov cx, 295
+; 	inc dx
+; 	cmp dx, [loop_]
+; 	JNE delete_player
+
+; create_the_player1:
+; 	mov cx, 295
+; 	dec [player_y]
+; 	mov dx, [player_y]
+; 	mov [loop_], dx
+; 	sub [loop_], 50
+; 	mov bh, 00h
+; 	mov bx, offset player_grafics_upwards
+; 	mov ah, 0ch
+; color_player1:
+; 	mov al, [bx]
+; 	cmp al, 's'
+; 	JNE continue_check1
+; 	push [loop_]
+; 	push dx
+; 	push cx
+; 	push ax
+; 	push bx
+
+; 	call sort
+
+; 	 pop bx
+; 	 pop ax
+; 	 pop cx
+; 	 pop dx
+; 	 pop [loop_]
+
+; 	cmp [loop_], 0
+; 	JNE move_up
+; 	ret
+; continue_check1:
+; 	cmp al, 't'
+; 	JNE draw_player1
+; 	inc cx
+; 	add bx, 1
+; 	JMP color_player1
+; draw_player1:
+; 	cmp al, 'n'
+; 	JNE not_color1
+; 	mov cx, 295
+; 	inc dx
+; 	add bx, 1
+; 	JMP color_player1
+; not_color1:
+; 	int 10h
+; 	inc cx
+; 	add bx, 1
+; 	JMP color_player1
 ENDP move_up
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-PROC WaitForData
+PROC main
 	call eliminate
 	add [loop2_], 1
 
 wait_:					;wait for data
 	mov  ah, 01h
 	int  16h
-	JZ main
+	JZ sort_the_game
 	mov ah, 00h
 	int 16h
 	
 	cmp ah, 48h
 	JNE next
-	cmp [player_y], 60
-	JE main
+	cmp [player_y], 51
+	JE sort_the_game
 	call move_up
-	JMP main
+	JMP sort_the_game
 next:
 	cmp ah, 50h
-	JNE main
-	cmp [player_y], 160
-	JE main
+	JNE sort_the_game
+	cmp [player_y], 151
+	JE sort_the_game
 	call move_down
 
-main:
-
-
+sort_the_game:
 ;mov ax, [speed]
 	cmp [loop2_], 10000
-	JNE WaitForData
+	JNE main
 	mov [loop2_], 00
 	call sort
 	;call print_score
-	JMP WaitForData
-ENDP WaitForData
+	JMP main
+ENDP main
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 PROC sort
 first_block:
@@ -388,7 +532,7 @@ first_block:
 	mov ax,dx
 	xor dx,dx
 	mov cx, 50
-	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 	add dx, 1
 	cmp dx, 2
 	JNE second_block
@@ -396,7 +540,7 @@ first_block:
 ;set len
 	mov [block1_e], 1
 	call randomize_len
-	mov ax, [random_len]
+;	mov ax, [random_len]
 	mov [block1len], ax
 
 ;set y
@@ -434,7 +578,7 @@ call randomize_course
 	mov ax,dx
 	xor dx,dx
 	mov cx, 150
-	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 	add dx, 1
 	cmp dx, 2
 	JNE third_block
@@ -475,7 +619,7 @@ call randomize_course
 	mov ax,dx
 	xor dx,dx
 	mov cx, 150
-	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 	add dx, 1
 	cmp dx, 2
 	JE set_len
@@ -516,7 +660,7 @@ call randomize_course
 	mov ax,dx
 	xor dx,dx
 	mov cx, 450
-	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 	add dx, 1
 	cmp dx, 2
 	JE set_len
@@ -758,9 +902,9 @@ PROC randomize_len				;;;randomize number between 1-bx at dx, [random_len]
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 60
-	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 4)
-	add dx, 70
+	mov cx, 5
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
+	add dx, 2
 	mov [random_len], dx
 	ret
 hard_mode_len:
@@ -769,7 +913,7 @@ hard_mode_len:
 	mov ax,dx
 	xor dx,dx
 	mov cx, 60
-	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 4)
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
 	add dx, 200
 	mov [random_len], dx
 	ret
@@ -777,12 +921,43 @@ ENDP randomize_len
 
 PROC randomize_course
 randstart:			;create randoms
+	cmp [random], 1
+	JNE check_next_course
 	mov ah, 0h 	;get system time
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 3
-	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+	mov cx, 2
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
+	add dx, 2
+	mov [random], dx
+	ret
+check_next_course:
+	cmp [random], 2
+	JNE random_is_3
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 2
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
+;	add dx, 2
+	cmp dx, 0
+	JNE random_is_2
+	inc dx
+	mov [random], dx
+	ret
+random_is_2:
+	add dx, 2
+	mov [random], dx
+	ret
+random_is_3:
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 2
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 	add dx, 1
 	mov [random], dx
 	ret
