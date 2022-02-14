@@ -266,9 +266,9 @@ PROC move_down   ; move down
 	mov dx, [player_y]
 	mov [loop_], dx
 	add [loop_], 78
-mov_down:
-mov dx, [player_y]
-mov cx, 295
+	mov_down:
+	mov dx, [player_y]
+	mov cx, 295
 	mov [loop2_], dx
 	add [loop2_], 29
 
@@ -448,7 +448,7 @@ next:
 
 sort_the_game:
 ;mov ax, [speed]
-	cmp [loop2_], 10000
+	cmp [loop2_], 100
 	JNE main
 	mov [loop2_], 00
 	call sort
@@ -463,14 +463,14 @@ first_block:
 		JNE block1_exist
 		call randomize_course
 		mov bx, [random]
-		call check_rows
+		; call check_rows
 
-		cmp [indicator1], 1
-		JNE indicator_is_fine1
-		cmp [indicator3], 1
-		JNE indicator_is_fine1
-		 JMP second_block
-		;ret
+		; cmp [indicator1], 1
+		; JNE indicator_is_fine1
+		; cmp [indicator3], 1
+		; JNE indicator_is_fine1
+		; JMP second_block
+		; ;ret
 	indicator_is_fine1:
 
 		; mov ah, 0h 	;get system time
@@ -500,8 +500,11 @@ first_block:
 		mov [block1_y], 100
 		JMP block1_exist
 	cmp2:
+		cmp [random], 3
+		JNE dont_draw_block4
 		mov [block1_y], 150
-
+	dont_draw_block4:
+	 JMP second_block
 	block1_exist:
 		mov bx, 1
 		call move_block
@@ -516,14 +519,14 @@ second_block:
 		call randomize_course
 
 		mov bx, [random]
-		call check_rows
+		; call check_rows
 
-		cmp [indicator1], 1
-		JNE indicator_is_fine2
-		cmp [indicator3], 1
-		JNE indicator_is_fine2
-		JMP third_block
-		;ret
+		; cmp [indicator1], 1
+		; JNE indicator_is_fine2
+		; cmp [indicator3], 1
+		; JNE indicator_is_fine2
+		; JMP third_block
+		; ;ret
 	indicator_is_fine2:
 		mov bx, 2
 		cmp [block2_e], 00
@@ -556,8 +559,11 @@ second_block:
 		mov [block2_y], 100
 		JMP block2_exist
 	cmp4:
+		cmp [random], 3
+		JNE dont_draw_block2
 		mov [block2_y], 150
-
+	dont_draw_block2:
+	 JMP third_block
 	block2_exist:
 		call move_block
 third_block:
@@ -566,14 +572,14 @@ third_block:
 
 		call randomize_course
 		mov bx, [random]
-		call check_rows
+		; call check_rows
 
-		cmp [indicator1], 1
-		JNE indicator_is_fine3
-		cmp [indicator3], 1
-		JNE indicator_is_fine3
-		JMP fourth_block
-		;ret
+		; cmp [indicator1], 1
+		; JNE indicator_is_fine3
+		; cmp [indicator3], 1
+		; JNE indicator_is_fine3
+		; JMP fourth_block
+		; ;ret
 	indicator_is_fine3:
 
 		mov bx, 3
@@ -607,22 +613,25 @@ third_block:
 		mov [block3_y], 100
 		JMP block3_exist
 	cmp6:
+		cmp [random], 3
+		JNE dont_draw_block1
 		mov [block3_y], 150
-
+	dont_draw_block1:
+	 JMP fourth_block
 	block3_exist:	
 		call move_block
 
 fourth_block:
 		mov dx, [speed]
 		call delay
-		call randomize_course
+		; call randomize_course
 
-		cmp [indicator1], 1
-		JNE indicator_is_fine5
-		cmp [indicator3], 1
-		JNE indicator_is_fine5
-		; JMP fourth_block
-		ret
+		; cmp [indicator1], 1
+		; JNE indicator_is_fine5
+		; cmp [indicator3], 1
+		; JNE indicator_is_fine5
+		; ; JMP fourth_block
+		; ret
 	indicator_is_fine5:
 		mov bx, 4
 		cmp [block4_e], 00
@@ -655,7 +664,11 @@ fourth_block:
 		mov [block4_y], 100
 		JMP block4_exist
 	cmp8:
+		cmp [random], 3
+		JNE dont_draw_block
 		mov [block4_y], 150
+	dont_draw_block:
+	ret
 
 	block4_exist:	
 		call move_block
@@ -882,9 +895,11 @@ PROC randomize_len				;;;randomize number between 1-bx at dx, [random_len]
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 2
+	mov cx, 100
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
-	add dx,250
+	add dx,100
+	cmp dx, [random_len]
+	JE randomize_len
 	mov [random_len], dx
 	ret
 hard_mode_len:
@@ -892,7 +907,7 @@ hard_mode_len:
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 60
+	mov cx, 100
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
 	add dx, 200
 	mov [random_len], dx
@@ -908,7 +923,8 @@ randstart:			;create randoms
 	mov cx, 3
 	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
 	add dx, 1
-	
+	mov [random], dx
+	ret
 
 	cmp dx, 3
 	JE random_is3
@@ -951,7 +967,11 @@ random_is3:
 	mov dx, 170
 	int 10h
 	cmp al, [block_color]
-	JE random_is1
+	JNE ttt
+	mov [random], 0
+	ret
+	
+ttt:
 	
 	mov dx, 3
 	mov [random], dx
@@ -978,16 +998,17 @@ black:
 ENDP break
 
 PROC check_rows
+	mov [indicator1], 0
+	mov [indicator2], 0
+	mov [indicator3], 0
+	mov [indicator4], 0
 	cmp bx, 1
 	JE check23
 	cmp bx, 2
 	JE check13
 	cmp bx, 3
 	JE check12
-	mov [indicator1], 0
-	mov [indicator2], 0
-	mov [indicator3], 0
-	mov [indicator4], 0
+
 
 check23:	
 	mov bh, 00h
