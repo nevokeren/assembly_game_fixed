@@ -6,11 +6,32 @@ STACK 100h
 
 DATASEG
 	;grafics arrays
-		player_grafics_upwards  db 't', 't', 't', 't', 't', 't', 't', 't', 24, 24, 24, 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 24, 't', 'n' 
-								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't','n'  
+		blocks_array db 3, 2, 1, 3, 3, 2, 1, 2, 1, 3, 2, 1, 2, 1, 3, 1, 3, 2, 1, 2, 1, 2, 1, 3, 2
+					db , 3, 2, 3, 1, 2, 3, 1, 2, 1, 1, 3, 2, 3, 2, 3, 1, 2, 3, 1, 1, 1, 2, 1, 2, 1
+					db, 1, 1, 3, 2, 2, 3, 1, 2, 2, 3, 1, 3, 1, 2, 3, 2, 1, 3, 3, 1, 1, 2, 1, 1, 2
+					db 3, 1, 1, 3, 3, 1, 2, 3, 1, 1, 2, 3, 2, 3, 1, 1, 1, 3, 1, 2, 1, 3, 1, 1, 2, 1
+					db, 1, 2, 1, 3, 1, 2, 1, 1, 1, 3, 2, 3, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1, 3, 2, 1
+					db, 2, 1, 1, 1, 2, 3, 1, 3, 1, 3, 2, 3, 2, 1, 3, 2, 1, 3, 1, 3, 2, 2, 1, 1, 1, 3
+					db, 1, 3, 2, 1, 2, 3, 2, 1, 2, 1, 2, 1, 3, 1, 2, 2, 3, 2, 3, 1, 1, 2, 3, 2, 3, 1
+					db, 2, 1, 3, 2, 1, 2, 1, 1, 3, 1, 3, 1, 2, 3, 1, 3, 2, 1, 3, 1, 1, 1, 2, 3, 3, 2
+					db, 3, 2, 1, 3, 2, 3, 2, 1, 3, 2, 1, 2, 3, 1, 2, 1, 3, 2, 2, 3, 2, 1, 2, 2, 3, 2
+					db, 3, 1, 1, 3, 2, 1, 2, 3, 3, 1, 2, 3, 3, 1, 2, 3, 1, 3, 1, 3, 1, 2, 2, 3, 1, 1
+					db, 3, 1, 1, 2, 1, 3, 2, 3, 1, 3, 3, 2, 3, 2, 1, 2, 2, 1, 3, 1, 3, 2, 3, 1, 2, 2
+					db, 2, 2, 1, 3, 3, 1, 3, 2, 3, 3, 1, 2, 3, 2, 1, 3, 1, 2, 1, 2, 3, 2, 1, 3, 2, 3
+					db, 3, 1, 3, 3, 1, 3, 3, 1, 1, 1, 2, 2, 3, 2, 3, 2, 1, 2, 1, 3, 1, 3, 2, 1, 3, 1
+					db, 1, 1, 2, 1, 1, 3, 2, 1, 2, 3, 1, 3, 3, 3, 2, 1, 2, 1, 1, 2, 1, 2, 3, 1, 3, 1
+					db, 1, 3, 2, 3, 1, 1, 3, 2, 3, 3, 2, 2, 2, 3, 1, 2, 2, 3, 2, 3, 1, 2, 3, 2, 3, 2
+					db, 3, 2, 1, 2, 3, 2, 3, 1, 2, 1, 2, 1, 1, 3, 1, 1, 1, 3, 1, 2, 3, 2, 1, 1, 2, 3
+					db, 2, 1, 3, 2, 1, 2, 1, 3, 3, 1, 2, 3, 2, 3, 2, 3, 3, 2, 2, 3, 1, 3, 1, 2, 3, 1
+					db, 1, 2, 3, 2, 3, 2, 1, 2, 1, 2, 3, 1, 2, 1, 3, 3, 2, 1, 3, 1, 2, 1, 3, 2, 1, 2
+					db, 3, 2, 1, 2, 3, 2, 1, 3, 2, 1, 2, 3, 1, 2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 2, 3, 3
+					db, 3, 3, 1, 1, 3, 3, 2, 3, 2, 1, 3, 2, 1, 2, 3, 2, 1, 3, 1, 2, 3, 3
+
+		player_grafics_sliding  db 't', 't', 't', 27, 27, 27, 27, 't', 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 27, 27, 27, 27, 27, 't', 't', 't', 't', 'n' 
+								db 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n'  
 								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
 								db 't', 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 't', 'n'
 								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
@@ -30,17 +51,47 @@ DATASEG
 								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
 								db 't', 4, 4, 4, 4, 4, 4,4, 4, 4, 4, 't', 'n'
 								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't','n' 
-								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 24, 't', 'n' 
-								db 't', 't', 't', 't', 't', 't', 't', 't', 24, 24, 24, 't', 's'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n'  
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 27, 27, 27, 27, 27, 't', 't', 't', 't', 'n' 
+								db 't', 't', 't', 27, 27, 27, 27, 't', 't', 't', 't', 't', 's'
 
-		player_grafics_downward db 't', 't', 't', 't', 't', 't', 't', 't', 24, 24, 24, 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 24, 't', 'n' 
-								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't','n'  
+		player_grafics_upwards  db 't', 't', 't', 't', 't', 't', 't', 't', 27, 27, 27, 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 27, 't', 'n' 
+								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n'  
+								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
+								db 't', 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 't', 'n'
+								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 0, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55 ,55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 0, 0 ,55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
+								db 't', 4, 4, 4, 4, 4, 4,4, 4, 4, 4, 't', 'n'
+								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n' 
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 27, 't', 'n' 
+								db 't', 't', 't', 't', 't', 't', 't', 't', 27, 27, 27, 't', 's'
+
+		player_grafics_downward db 't', 't', 't', 't', 't', 't', 't', 't', 27, 27, 27, 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 27, 't', 'n' 
+								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n'  
 								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
 								db 't', 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 't', 'n'
 								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
@@ -60,22 +111,27 @@ DATASEG
 								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
 								db 't', 4, 4, 4, 4, 4, 4,4, 4, 4, 4, 't', 'n'
 								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't','n' 
-								db 't', 't', 't', 't', 't', 't', 24, 24, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 24, 24, 24, 24, 24, 't', 'n' 
-								db 't', 't', 't', 't', 't', 't', 't', 't', 24, 24, 24, 't', 's'
-
-						
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n' 
+								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 'n'
+								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 27, 't', 'n' 
+								db 't', 't', 't', 't', 't', 't', 't', 't', 27, 27, 27, 't', 's'
+	;far jumps
+		address dw 00
+		blocks_array_address dw offset blocks_array
 	;colors
 		linescolor db 15
 		middle_lines_color db 0
-		backgroundcolor db 0
+		backgroundcolor db 11h
 		block_color db 15
+		normal_block_color db 15
+		jmp_block_color db 20h
+		slide_block_frame db 36h
+		normal_block_frame db 0
 		
 	;player data
-		player db 1
 		player_y dw 101
+		upwards dw 0
 	;lines
 		upperline dw 40
 		middleline1 dw 90
@@ -84,16 +140,24 @@ DATASEG
 	;loop data
 		loop_ dw 00
 		loop2_ dw 00
+	;progress
 		progress dw 0
-		speed dw 50000
+		best dw 0
+		speed dw 10500
 	;print data
-		units db 00
-		dozens db 00
-		hundbreds db 00
+		units db '0', '$'
+		dozens db '0', '$'
+		hundbreds db '0', '$'
+
+		best_dozens db '0', '$'
+		best_hundbreds db '0', '$'
+		best_units db '0', '$'
 	;mode
 		hard_mode dw 00
 	;blocks data
-			blocks_highest_x dw 00
+		blocks_highest_x dw 00
+		blocks dw 00
+		blocks_on_screen dw 00
 		;y's
 			max_block dw 00
 			block1_y dw 00	
@@ -123,21 +187,38 @@ DATASEG
 			block4_e dw 00
 			block5_e dw 00
 			block6_e dw 00
-	;general
-		block_y dw 00
-		block_x dw, 00
-		block_len dw 00
-		block_end dw 00
-		block_lower dw 00
+		;general
+			block_y dw 00
+			block_x dw, 00
+			block_len dw 00
+			block_end dw 00
+			block_lower dw 00
 	;randoms
-		random dw 00
+		random db 00
 		random_len dw 00
+		start_random dw 00	
 	;indicators
 		indicator1 dw 00
 		indicator2 dw, 00
 		indicator3 dw 00
 		indicator4 dw 00
 		len dw 00
+		pressed db 0
+	;strings
+	rules db 'Rules:', '$'
+	how_to_move_up db '-press UP to move up', '$'
+	how_to_move_down db '-press DOWN to move down', '$'
+	how_to_eliminate db '-if you touch the white blocks',  '$'
+	die db 'you will die','$'
+	how_to_jump db '-if you see a blue block ahead ', '$'
+	jump db 'press left to slide under it', '$'
+	normal_hard db '-if you want to play normal mode ', '$'
+	press_1 db 'press 1', '$'
+	hard db '-if you want to play hard mode','$'
+	press_2 db 'press 2', '$'
+	your_best db 'Your best:', '$'
+	good_job db 'GOOD JOB!!!', '$'
+	
 CODESEG
 
 start:
@@ -147,10 +228,128 @@ start:
 ;set grafic mode
 	mov ax, 13h
 	int 10h
+
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 20
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
+	add dx, 1
+	add [blocks_array_address], dx
+	; mov [start_random], dx
+
+	call opening_screen
+	call break
 start_the_game:
+	mov ah, 09h
+    mov cx, 1400h
+    mov al, 20h
+    mov bl, 0
+    int 10h
 call base_color
 
 JMP main
+PROC opening_screen
+black:
+	mov ah, 09h
+    mov cx, 1400h
+    mov al, 20h
+    mov bl, 0
+    int 10h
+
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 05h ; row
+	mov dl, 03h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [rules]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 07h ; row
+	mov dl, 05h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [how_to_move_up]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 09h ; row
+	mov dl, 05h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [how_to_move_down]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 0bh ; row
+	mov dl, 05h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [how_to_eliminate]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 0dh ; row
+	mov dl, 07h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [die]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 0fh ; row
+	mov dl, 05h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [how_to_jump]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 011h ; row
+	mov dl, 07h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [jump]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 013h ; row
+	mov dl, 05h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [normal_hard]
+	int 21h
+;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 015h ; row
+	mov dl, 07h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [press_1]
+	int 21h
+call break
+ENDP opening_screen
+
 PROC base_color
 	mov cx, 320
 	mov al, [backgroundcolor]
@@ -195,14 +394,51 @@ draw_upper_line:
 	mov cx, 319
 	mov dx, [bottomline]
 	call draw_the_lines
+	mov [upwards], 1
+	call create_the_player
+
+ENDP base_color
+
+PROC create_the_player
+delete_the_player:
+	mov dx, [player_y]
+	mov cx, 295
+	mov al, [backgroundcolor]
+	mov ah, 0ch
+	mov bh,00h
+xxx:
+	int 10h
+	inc cx
+	cmp cx, 307
+	JNE xxx
+	inc dx
+	mov cx, 295
+	cmp dx, [middleline1]
+	JE create_the_playerf
+	cmp dx, [middleline2]
+	JE create_the_playerf
+	cmp dx, [bottomline]
+	JE create_the_playerf
+	JMP xxx
+
 
 ;create player in the middle
-create_the_player:
-	mov cx, 295
-	mov dx, 101
+create_the_playerf:
+	; mov cx, 295
+	mov dx, [player_y]
 	mov bh, 00h
+	cmp [upwards], 1
+	JNE draw_downwards
 	mov bx, offset player_grafics_upwards
-;	mov al, [player]
+	JMP drw
+draw_downwards:
+	cmp [upwards], 2
+	JNE draw_sliding
+	mov bx, offset player_grafics_downward
+	JMP drw
+draw_sliding:
+	mov bx, offset player_grafics_sliding
+drw:
 	mov ah, 0ch
 color_player:
 	mov al, [bx]
@@ -227,8 +463,7 @@ not_color:
 	inc cx
 	add bx, 1
 	JMP color_player
-
-ENDP base_color
+ENDP create_the_player
 PROC eliminate
 	mov cx, [player_y]
 	sub cx, 1
@@ -244,6 +479,8 @@ next_checkout1:
 	JNE next_checkout2
 	call break
 next_checkout2:
+	cmp [pressed], 1
+	JE next_checkout3
 	cmp [block3_x], 295
 	JNE next_checkout3
 	cmp [block3_y], cx
@@ -259,6 +496,117 @@ next_checkout4:
 	ret
 ENDP eliminate
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+PROC print_score
+mov ax, [progress]
+mov bl, 100
+
+div bl
+add al, 30h
+mov [hundbreds], al
+mov al, ah
+mov ah, 00
+mov bl, 10
+div bl
+
+add al, 30h
+mov [dozens], al
+
+mov al, ah
+add al, 30h
+mov [units], al
+;;;;;;;;;
+mov ax, [best]
+mov bl, 100
+
+div bl
+add al, 30h
+mov [best_hundbreds], al
+mov al, ah
+mov ah, 00
+mov bl, 10
+div bl
+
+add al, 30h
+mov [best_dozens], al
+
+mov al, ah
+add al, 30h
+mov [best_units], al
+
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 00h ; row
+	mov dl, 027h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [units]
+	int 21h
+;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 00h ; row
+	mov dl, 026h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [dozens]
+	int 21h
+;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 00h ; row
+	mov dl, 025h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [hundbreds]
+	int 21h
+;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 02h ; row
+	mov dl, 19h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [your_best]
+	int 21h
+;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 02h ; row
+	mov dl, 027h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [best_units]
+	int 21h
+;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 02h ; row
+	mov dl, 026h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [best_dozens]
+	int 21h
+	;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 02h ; row
+	mov dl, 025h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [best_hundbreds]
+	int 21h
+
+	ret
+ENDP print_score
+
 PROC move_down   ; move down
 	mov bh, 00h
 	mov cx, 295
@@ -273,11 +621,6 @@ PROC move_down   ; move down
 	add [loop2_], 29
 
 delete_player1:
-	; mov al, [linescolor]
-	; cmp dx, [middleline2]
-	; JE normal_delete
-	; cmp dx, [middleline1]
-	; JE normal_delete
 	mov al, [backgroundcolor]
 normal_delete:
 	
@@ -295,8 +638,20 @@ create_the_player2:
 	mov cx, 295
 	inc [player_y]
 	mov dx, [player_y]
-
+	add dx, 29
 	mov bh, 00h
+	mov ah, 0dh
+	int 10h
+	cmp al, [block_color]
+	JNE maybe_eliminated1
+	call break
+maybe_eliminated1:
+	cmp al, [slide_block_frame]
+	JNE not_eliminated1
+	call break
+not_eliminated1:
+
+	sub dx, 29
 	mov bx, offset player_grafics_downward
 	mov ah, 0ch
 color_player2:
@@ -308,14 +663,21 @@ color_player2:
 	push cx
 	push ax
 	push bx
+	
+	mov ax, [speed]
+	mov bl, 45
+	div bl
+	mov dx, ax
+	call delay
+
 
 	call sort
 
-	 pop bx
-	 pop ax
-	 pop cx
-	 pop dx
-	 pop [loop_]
+	pop bx
+	pop ax
+	pop cx
+	pop dx
+	pop [loop_]
 	cmp [loop_], dx
 	JNE mov_down
 	ret
@@ -356,11 +718,6 @@ mov cx, 295
 	add [loop2_], 29
 
 delete_player:
-	; mov al, [linescolor]
-	; cmp dx, [middleline2]
-	; JE normal_delete1
-	; cmp dx, [middleline1]
-	; JE normal_delete1
 	mov al, [backgroundcolor]
 normal_delete1:
 	int 10h
@@ -377,8 +734,18 @@ create_the_player1:
 	mov cx, 295
 	dec [player_y]
 	mov dx, [player_y]
-
 	mov bh, 00h
+	mov ah, 0dh
+	int 10h
+	cmp al, [block_color]
+	JNE maybe_eliminated
+	call break
+maybe_eliminated:
+	cmp al, [slide_block_frame]
+	JNE not_eliminated
+	call break
+not_eliminated:
+
 	mov bx, offset player_grafics_upwards
 	mov ah, 0ch
 color_player1:
@@ -390,6 +757,13 @@ color_player1:
 	push cx
 	push ax
 	push bx
+
+	mov ax, [speed]
+	mov bl, 50
+	div bl
+	mov dx, ax
+	mov dx, 65500
+	call delay
 
 	call sort
 
@@ -433,13 +807,21 @@ wait_:					;wait for data
 	mov ah, 00h
 	int 16h
 	
-	cmp ah, 48h
+
+	cmp ah, 4bh
 	JNE next
+	mov [pressed], 1
+	mov [upwards], 3
+	call create_the_player
+
+next:
+	cmp ah, 48h
+	JNE next1
 	cmp [player_y], 51
 	JE sort_the_game
 	call move_up
 	JMP sort_the_game
-next:
+next1:
 	cmp ah, 50h
 	JNE sort_the_game
 	cmp [player_y], 151
@@ -447,47 +829,60 @@ next:
 	call move_down
 
 sort_the_game:
-;mov ax, [speed]
-	cmp [loop2_], 100
+	;mov ax, [speed]
+	mov bx, [speed]
+	cmp bx, 500
+	JAE count
+	mov bx, 500
+count:
+	cmp [loop2_], bx
 	JNE main
 	mov [loop2_], 00
 	call sort
-	;call print_score
+	call print_score
+	mov ax, 00
+
+
+;delay_to_
 	JMP main
 ENDP main
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 PROC sort
+
 first_block:
-		
+		mov dx, 65500
+		call delay
 		cmp [block1_e], 00
 		JNE block1_exist
-		call randomize_course
-		mov bx, [random]
+
+
+		; call randomize_course
+		; cmp [random], 0
+		; JE second_block
+
+
+		; mov bx, [random]
 		; call check_rows
+		; cmp [blocks], 2
+		; JAE second_block 
 
-		; cmp [indicator1], 1
-		; JNE indicator_is_fine1
-		; cmp [indicator3], 1
-		; JNE indicator_is_fine1
-		; JMP second_block
-		; ;ret
-	indicator_is_fine1:
-
-		; mov ah, 0h 	;get system time
-		; int 1ah
-		; mov ax,dx
-		; xor dx,dx
-		; mov cx, 65500
-		; div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
-		; add dx, 1
-		; cmp dx, 25673
-		; JNE second_block
-
+	; 	cmp [indicator1], 1
+	; 	JNE indicator_is_fine1
+	; 	cmp [indicator3], 1
+	; 	JNE indicator_is_fine1
+	; 	JMP second_block
+	; indicator_is_fine1:
 	;set len
 		mov [block1_e], 1
+		inc [blocks_on_screen]
 		call randomize_len
 		mov ax, [random_len]
 		mov [block1len], ax
+
+		mov bx, [blocks_array_address]
+		mov al, [bx]
+		mov [random], al
+		add [blocks_array_address], 1
 
 	;set y
 		cmp [random], 1
@@ -500,53 +895,46 @@ first_block:
 		mov [block1_y], 100
 		JMP block1_exist
 	cmp2:
-		cmp [random], 3
-		JNE dont_draw_block4
 		mov [block1_y], 150
-	dont_draw_block4:
-	 JMP second_block
+
 	block1_exist:
 		mov bx, 1
 		call move_block
-		;mov dx, [speed]
-		;call delay
 
 
 second_block:
-		
-		mov dx, [speed]
-		call delay
-		call randomize_course
-
-		mov bx, [random]
-		; call check_rows
-
-		; cmp [indicator1], 1
-		; JNE indicator_is_fine2
-		; cmp [indicator3], 1
-		; JNE indicator_is_fine2
-		; JMP third_block
-		; ;ret
-	indicator_is_fine2:
-		mov bx, 2
 		cmp [block2_e], 00
 		JNE block2_exist
 
-		; mov ah, 0h 	;get system time
-		; int 1ah
-		; mov ax,dx
-		; xor dx,dx
-		; mov cx, 150
-		; div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
-		; add dx, 1
-		; cmp dx, 150
-		; JNE third_block
+		mov dx, 65500
+		call delay
+		
+		; call randomize_course
+		; cmp [random], 0
+		; JE third_block
+
+	
+		mov ah, 0h 	;get system time
+		int 1ah
+		mov ax,dx
+		xor dx,dx
+		mov cx, 50
+		div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
+		add dx, 1
+		cmp dx, 8
+		JNE third_block
 
 	;set len
 		mov [block2_e], 1
+		inc [blocks_on_screen]
 		call randomize_len
 		mov ax, [random_len]
 		mov [block2len], ax
+
+		mov bx, [blocks_array_address]
+		mov al, [bx]
+		mov [random], al
+		add [blocks_array_address], 1
 
 	;set y
 		cmp [random], 1
@@ -559,48 +947,47 @@ second_block:
 		mov [block2_y], 100
 		JMP block2_exist
 	cmp4:
-		cmp [random], 3
-		JNE dont_draw_block2
 		mov [block2_y], 150
-	dont_draw_block2:
-	 JMP third_block
+
 	block2_exist:
+		mov bx, 2
 		call move_block
+
 third_block:
 		mov dx, [speed]
 		call delay
 
-		call randomize_course
-		mov bx, [random]
-		; call check_rows
 
-		; cmp [indicator1], 1
-		; JNE indicator_is_fine3
-		; cmp [indicator3], 1
-		; JNE indicator_is_fine3
-		; JMP fourth_block
-		; ;ret
-	indicator_is_fine3:
-
-		mov bx, 3
 		cmp [block3_e], 00
 		JNE block3_exist
+		
+		; call randomize_course
+		; cmp [random], 0
+		; JE fourth_block
 
-		; mov ah, 0h 	;get system time
-		; int 1ah
-		; mov ax,dx
-		; xor dx,dx
-		; mov cx, 150
-		; div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
-		; add dx, 1
-		; cmp dx, 56
-		; JNE fourth_block
+		
+		mov ah, 0h 	;get system time
+		int 1ah
+		mov ax,dx
+		xor dx,dx
+		mov cx, 20
+		div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
+		add dx, 1
+		cmp dx, 16
+		JNE fourth_block
 
 	set_len:
 		mov [block3_e], 1
+		inc [blocks_on_screen]
+		mov bx, 3
 		call randomize_len
 		mov ax, [random_len]
 		mov [block3len], ax
+
+		mov bx, [blocks_array_address]
+		mov al, [bx]
+		mov [random], al
+		add [blocks_array_address], 1
 
 	;set y
 		cmp [random], 1
@@ -613,173 +1000,197 @@ third_block:
 		mov [block3_y], 100
 		JMP block3_exist
 	cmp6:
-		cmp [random], 3
-		JNE dont_draw_block1
 		mov [block3_y], 150
-	dont_draw_block1:
-	 JMP fourth_block
+
 	block3_exist:	
-		call move_block
+		mov bx, 3
+		call move_slide_block
 
 fourth_block:
-		mov dx, [speed]
-		call delay
+		; mov dx, [speed]
+		; call delay
+
+		; cmp [block4_e], 00
+		; JNE block4_exist
+
 		; call randomize_course
+		; cmp [random], 0
+		; JNE tt
+		;ret
 
-		; cmp [indicator1], 1
-		; JNE indicator_is_fine5
-		; cmp [indicator3], 1
-		; JNE indicator_is_fine5
-		; ; JMP fourth_block
-		; ret
-	indicator_is_fine5:
-		mov bx, 4
-		cmp [block4_e], 00
-		JNE block4_exist
+; tt:
+; 	indicator_is_fine5:
+; 		mov ah, 0h 	;get system time
+; 		int 1ah
+; 		mov ax,dx
+; 		xor dx,dx
+; 		mov cx, 450
+; 		div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
+; 		add dx, 1
+; 		cmp dx, 320
+; 		JE set_len2
+; 		ret
 
-		; mov ah, 0h 	;get system time
-		; int 1ah
-		; mov ax,dx
-		; xor dx,dx
-		; mov cx, 450
-		; div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
-		; add dx, 1
-		; cmp dx, 2
-		; JE set_len
+; 	set_len2:
+; 		mov [block4_e], 1
+; 		call randomize_len
+; 		mov ax, [random_len]
+; 		mov [block4len], ax
 
-	set_len2:
-		mov [block4_e], 1
-		call randomize_len
-		mov ax, [random_len]
-		mov [block4len], ax
+; 	;set y
+; 		cmp [random], 1
+; 		JNE cmp7
+; 		mov [block4_y], 50
+; 		JMP block4_exist
+; 	cmp7:
+; 		cmp [random], 2
+; 		JNE cmp8
+; 		mov [block4_y], 100
+; 		JMP block4_exist
+; 	cmp8:
+; 		mov [block4_y], 150
 
-	;set y
-		cmp [random], 1
-		JNE cmp7
-		mov [block4_y], 50
-		JMP block4_exist
-	cmp7:
-		cmp [random], 2
-		JNE cmp8
-		mov [block4_y], 100
-		JMP block4_exist
-	cmp8:
-		cmp [random], 3
-		JNE dont_draw_block
-		mov [block4_y], 150
-	dont_draw_block:
-	ret
+; 	block4_exist:	
+; 		mov bx, 4
+; 		call move_block
 
-	block4_exist:	
-		call move_block
-		ret	
+
+mov dx, [blocks_on_screen]
+mov ax, 4
+sub ax, dx
+; cmp dx, 0
+; JNE normal_delay
+mov dx, ax 
+;normal_delay:
+	mov ax, 10000
+	call multiply
+	mov dx, ax
+	call delay
+
+ 	ret	
 ENDP sort
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-PROC print_score
-	mov ax, [progress]
+PROC move_slide_block
+	mov cx, [block3_x]
+	mov dx, [block3_y]
 
-	mov bl, 100
-	div bl
-	mov [hundbreds], al
-	xor al, al
-	mov bl, 10
-	div bl
-	mov [dozens], al
-	mov [units], ah
-
-	mov [units], 0
-
-	add [units], 48
-	add [dozens], 48
-	add [hundbreds], 48
-
-	mov ah, 02h ; cursor position
-	mov bh, 00h ; page number
-	mov dh, 2h ; row
-	mov dl, 2h ; column
-	int 10h
-
-	mov ah, 02h ; write string to standart output
-	lea dx, [units]
-	int 21h
-ENDP print_score
-
-PROC draw_block
-	; mov ah, 0h 	;get system time
-	; int 1ah
-	; mov ax,dx
-	; xor dx,dx
-	; mov cx, 3
-	; div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
-	; add dx, 1
-	; mov [block_color], dl
-	mov al, [backgroundcolor]
-;mov al, dl
-	mov ah, 0ch
-	mov bh, 00
-	mov [loop_], 00
-;set x,y
-draw_in_range:
-	mov cx, [block_x]
-	mov dx, [block_y]
-	add dx, 30
 	mov [block_lower], dx
-	sub dx, 30
+	add [block_lower], 30
 
-	push cx
-	sub cx, [block_len]
-	cmp cx, 00
-	JL lower_then_0
 	mov [block_end], cx
-	pop cx
-	cmp [block_end], 319
-	JNE cnte
-	mov bx, 8
-	ret
-cnte:
-	JMP delete_block
+	mov ax, [block3len]
+	sub [block_end], ax
+	cmp [block_end], 0
+	JL end_is_lower0
 
-lower_then_0:
+	JMP start_deleting
+
+end_is_lower0:
 	mov [block_end], 00
+
+start_deleting:
+ 	mov ah, 0ch
+ 	mov bh, 00h
+	mov al, [backgroundcolor]
+ 	int 10h
+ 	dec cx
+ 	cmp cx, [block_end]
+ 	JNE start_deleting
+ 	inc dx
+ 	mov cx, [block3_x]
+ 	cmp dx, [block_lower]
+ 	JNE start_deleting
+
+ 	inc [block3_x]
+	cmp [block3_x], 319
+	JNE fine
+	dec [block3_x]
+
+short_block_len:
+	dec [block3len]
+	cmp [block3len], 0
+	JA fine
+	mov [block3_e], 00
+	dec [blocks_on_screen]
+	sub [speed], 100
+	inc [progress]
+	mov [block3_x], 01
+	mov [block3_y], 00
+	mov [pressed], 0
+	ret
+fine:
+
+ 	mov cx, [block3_x]
+ 	mov dx, [block3_y]
+ 	mov [block_end], cx
+ 	mov ax, [block3len]
+ 	sub [block_end], ax
+ 	cmp [block_end], 0
+ 	JL lower_then0
+ 	JMP start_drawing
+ lower_then0:
+ 	mov [block_end], 00
+ start_drawing:
+ 	inc [block_end]
+	dec [block_lower]
+
+ 	cmp cx, [block3_x]
+ 	JE speciel_color
+
+	cmp cx, [block_end]
+	JE speciel_color
+
+	cmp dx, [block3_y]
+	JE speciel_color
+
+	cmp dx, [block_lower]
+	JE speciel_color
+
+	mov ah, 50
+	push cx
+	mov cx, dx
+	call cx_%_2
+	cmp ah, 0
 	pop cx
-delete_block:
+	JE speciel_color
+
+ normal_color:
+ mov ah, 0ch
+	mov al, [jmp_block_color]
 	int 10h
+	JMP increases
+ speciel_color:
+	mov ah, 0ch
+ 	mov al, [slide_block_frame]
+ 	int 10h
+ increases:
+  	dec [block_end]
+	inc [block_lower]
+
+
 	dec cx
 	cmp cx, [block_end]
-	JNE delete_block
-	mov cx, [block_x]
+	JNE start_drawing
+	mov cx, [block3_x]
 	inc dx
 	cmp dx, [block_lower]
-	JNE delete_block
-	cmp [loop_], 00
-	JE next_range
-	mov [loop_], 00
-	ret
-next_range:
-;set x,y,color
-	mov al, [block_color]
-	mov [loop_], 1
-	cmp [block_x], 319
-	JNE x
-	dec [block_len]
-	cmp [block_len], 0
-	JNE draw_in_range
-	mov bx, 8
-	inc [progress]
-	ret
-x:
-	add [block_x], 1
-	JMP draw_in_range
-ENDP draw_block
+	JNE start_drawing
 
+	cmp [block_end], 307
+	JNE do_not_draw_player
+	mov [upwards], 1
+	call create_the_player
+do_not_draw_player:
+	ret
+ENDP move_slide_block
 PROC move_block    ;;;move/jenerate block in chosen course
 	cmp bx, 1
 	JE  move_first_block
 	cmp bx, 2
 	JE move_second_block
 	cmp bx, 3
-	JE  move_third_block
-	JMP move_fourth_block
+	;JE  move_third_block
+	;JMP move_fourth_block
 	ret
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 move_first_block:
@@ -801,7 +1212,11 @@ move_first_block:
 	cmp bx, 8
 	JNE return1
 	mov [block1_e], 00
-	
+	mov [pressed], 0
+	mov [upwards], 1
+	call create_the_player
+	dec [blocks_on_screen]
+	sub [speed], 100
 	mov [block1_x], 01
 
 return1:
@@ -826,7 +1241,11 @@ move_second_block:
 	cmp bx, 8
 	JNE return2
 	mov [block2_e], 00
-
+	mov [pressed], 0
+	mov [upwards], 1
+	call create_the_player
+	dec [blocks_on_screen]
+	sub [speed], 100
 
 	mov [block2_x], 01
 
@@ -888,234 +1307,373 @@ return4:
 ENDP move_block
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+PROC draw_block
+	mov al, [backgroundcolor]
+;mov al, dl
+	mov ah, 0ch
+	mov bh, 00
+	mov [loop_], 00
+;set x,y
+draw_in_range:
+	mov cx, [block_x]
+	mov dx, [block_y]
+	add dx, 30
+	mov [block_lower], dx
+	sub dx, 30
+
+	push cx
+	sub cx, [block_len]
+	cmp cx, 00
+	JL lower_then_0
+	mov [block_end], cx
+	pop cx
+	cmp [block_end], 319
+	JNE cnte
+	mov bx, 8
+	ret
+cnte:
+	JMP delete_block
+
+lower_then_0:
+	mov [block_end], 00
+	pop cx
+delete_block:
+	int 10h
+	dec cx
+	cmp cx, [block_end]
+	JNE delete_block
+	mov cx, [block_x]
+	inc dx
+	cmp dx, [block_lower]
+	JNE delete_block
+	cmp [loop_], 00
+	JE next_range
+	mov [loop_], 00
+	JMP draw_the_frame
+next_range:
+;set x,y,color
+	call randomize
+	mov al, [block_color]
+	;pop dx
+	mov [loop_], 1
+	cmp [block_x], 319
+	JNE x
+	dec [block_len]
+	cmp [block_len], 0
+	JNE draw_in_range
+	mov bx, 8
+	inc [progress]
+	;sub [speed], 50
+	JMP draw_the_frame
+x:
+	add [block_x], 1
+	JMP draw_in_range
+
+draw_the_frame:
+	mov cx, [block_x]
+	mov dx, [block_y]
+	
+start_draw_the_frame:
+	inc [block_end]
+	dec [block_lower]
+
+ 	; cmp cx, [block_x]
+ 	; JE speciel_color1
+
+	; cmp cx, [block_end]
+	; JE speciel_color1
+
+	; cmp dx, [block_y]
+	; JE speciel_color1
+
+	; cmp dx, [block_lower]
+	; JE speciel_color1
+
+	; ; mov ah, 50
+	; ; push cx
+	; ; mov cx, dx
+	; ; call cx_%_2
+	; ; cmp ah, 0
+	; ; pop cx
+	; ; JE speciel_color1
+	 JMP checks
+
+
+speciel_color1:
+dec [block_end]
+inc [block_lower]
+	mov ah, 0ch
+	mov al, [normal_block_frame]
+	mov bh, 00h
+	int 10h
+
+checks:
+dec [block_end]
+inc [block_lower]
+	dec cx
+	cmp cx, [block_end]
+	JNE start_draw_the_frame
+	mov cx, [block_x]
+	inc dx
+	cmp dx, [block_lower]
+	JNE start_draw_the_frame
+	ret
+
+ENDP draw_block
+
 PROC randomize_len				;;;randomize number between 1-bx at dx, [random_len]
+cmp bx, 3 
+JE short_len
+mov dx, 1000
+call delay
 	cmp [hard_mode], 1
 	JE hard_mode_len
 	mov ah, 0h 	;get system time
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 100
+	mov cx, 80
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
-	add dx,100
-	cmp dx, [random_len]
+	add dx,50
+	cmp dx, [len]
 	JE randomize_len
 	mov [random_len], dx
+	mov [len], dx
 	ret
 hard_mode_len:
 	mov ah, 0h 	;get system time
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 100
+	mov cx, 180
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
-	add dx, 200
+	add dx, 120
+	cmp dx, [random_len]
+	JE randomize_len
+	mov [random_len], dx
+	ret
+
+short_len:
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 10
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
+	add dx, 1
+	cmp dx, [random_len]
+	JE randomize_len
 	mov [random_len], dx
 	ret
 ENDP randomize_len
 
 PROC randomize_course
 randstart:			;create randoms
-	mov ah, 0h 	;get system time
-	int 1ah
-	mov ax,dx
-	xor dx,dx
-	mov cx, 3
-	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
-	add dx, 1
-	mov [random], dx
+; 	mov ah, 0h 	;get system time
+; 	int 1ah
+; 	mov ax,dx
+; 	xor dx,dx
+; 	mov cx, 3
+; 	div cx 		;dx contains the remain of the cx devided by bx (from 0 to 2)
+; 	add dx, 1
+; 	mov [random], dx
+
+; 	cmp dx, 1
+; 	JNE random_isnt_1
+; 	mov cx, 1
+; 	mov dx, 55
+; 	mov ah, 0dh
+; 	mov bh, 00h
+; 	int 10h
+; 	cmp al, [block_color]
+; 	inc [random]
+; 	mov dx, [random]
+; 	JE random_isnt_1
+; 	cmp al, [jmp_block_color]
+; 	JE randomize_course
+; 	ret
+; random_isnt_1:
+; 	cmp dx, 2
+; 	JNE random_isnt_2
+; 	mov cx, 1
+; 	mov dx, 105
+; 	mov ah, 0dh
+; 	mov bh, 00h
+; 	int 10h
+; 	cmp al, [block_color]
+; 	inc [random]
+; 	mov dx,[random]
+; 	JE random_isnt_2
+; 	cmp al, [jmp_block_color]
+; 	JE randomize_course
+; 	ret
+; random_isnt_2:
+; 	mov cx, 1
+; 	mov dx, 155
+; 	mov ah, 0dh
+; 	mov bh, 00h
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE check_and_return
+; 	mov [random], 0
+; 	ret
+; check_and_return:
+; 	cmp al, [jmp_block_color]
+; 	JNE return_with_random
+; 	mov [random], 0
+; 	ret
+; return_with_random:
 	ret
+ENDP randomize_course
 
-	cmp dx, 3
-	JE random_is3
-	cmp dx, 2
-	JE random_is2
-
-
-random_is1:
-	
-	mov bh, 0h
-	mov ah, 0dh
-	mov cx, 5
-	mov dx, 70
-	int 10h
-	cmp al, [block_color]
-	JE random_is2
-	mov dx, 1
-	mov [random], dx
+PROC cx_%_2
+	mov ax, cx
+	mov bl, 3
+	div bl
 	ret
-
-random_is2:
-	
-	mov bh, 00h
-	mov ah, 0dh
-	mov cx, 5
-	mov dx, 120
-	int 10h
-	cmp al, [block_color]
-	JE random_is3
-	
-	mov dx, 2
-	mov [random], dx
-	ret
-
-random_is3:
-	
-	mov bh, 00h
-	mov ah, 0dh
-	mov cx, 5
-	mov dx, 170
-	int 10h
-	cmp al, [block_color]
-	JNE ttt
-	mov [random], 0
-	ret
-	
-ttt:
-	
-	mov dx, 3
-	mov [random], dx
-	ret
-
-	ENDP randomize_course
-PROC break
-	mov ah, 0ch
-	mov bl, 00h
-	mov al, 0
-	mov cx, 0
-	mov dx, 0
-black:
-	int 10h
-	inc dx
-	cmp dx, 200
-	JNE black
-	mov dx, 0
-	inc cx
-	cmp cx, 320
-	JNE black
-	JMP black
-
-ENDP break
-
+ENDP cx_%_2
 PROC check_rows
 	mov [indicator1], 0
 	mov [indicator2], 0
 	mov [indicator3], 0
 	mov [indicator4], 0
-	cmp bx, 1
-	JE check23
-	cmp bx, 2
-	JE check13
-	cmp bx, 3
-	JE check12
-
-
-check23:	
+	mov  [blocks], 0
+	mov cx, 0
+	mov dx, 55
 	mov bh, 00h
 	mov ah, 0dh
-
-	mov cx, 1
-	mov dx, 120
-
 	int 10h
 	cmp al, [block_color]
-	JNE next_cmp1
-	add [indicator1], 1
-next_cmp1:
-	; mov cx, 5
-
-	; int 10h
-	; cmp al, [block_color]
-	; JNE next_cmp2
-	; add [indicator2], 1
-next_cmp2:
-	mov dx, 170
-	mov cx, 1
-
+	JNE second_row
+	inc [blocks]
+second_row:
+	mov dx, 115
 	int 10h
 	cmp al, [block_color]
-	JNE next_cmp3
-	add [indicator3], 1
-next_cmp3:
-	; mov cx, 5
-
-	; int 10h
-	; cmp al, [block_color]
-	; JNE return_sort
-	; add [indicator4], 1
-return_sort:
-	ret
-
-
-check12:	
-	mov bh, 00h
-	mov ah, 0dh
-
-	mov cx, 1
-	mov dx, 70
-
-	int 10h
-	cmp al, [block_color]
-	JNE next_cmp7
-	add [indicator1], 1
-next_cmp7:
-	; mov cx, 5
-
-	; int 10h
-	; cmp al, [block_color]
-	; JNE next_cmp8
-	; add [indicator2], 1
-next_cmp8:
-	mov dx, 120
-	mov cx, 1
-	int 10h
-	cmp al, [block_color]
-	JNE next_cmp9
-	add [indicator3], 1
-next_cmp9:
-	; mov cx, 5
-
-	; int 10h
-	; cmp al, [block_color]
-	; JNE return_sort
-	; add [indicator4], 1
-	; JMP return_sort
-	;;;;;;;;
-check13:	
-	mov bh, 00h
-	mov ah, 0dh
-
-	mov cx, 1
-	mov dx, 70
-
-	int 10h
-	cmp al, [block_color]
-	JNE next_cmp4
-	add [indicator1], 1
-next_cmp4:
-	mov cx, 5
-
-	int 10h
-	cmp al, [block_color]
-	JNE next_cmp5
-	add [indicator2], 1
-next_cmp5:
-	mov dx, 170
-	mov cx, 1
-
-	int 10h
-	cmp al, [block_color]
-	JNE next_cmp6
-	add [indicator3], 1
-next_cmp6:
-	mov cx, 5
-
+	JNE third_row
+	inc [blocks]
+third_row:
+	mov dx, 175
 	int 10h
 	cmp al, [block_color]
 	JNE return_sort
-	add [indicator4], 1
-	JMP return_sort
+	inc [blocks]
+return_sort:
+ret
+
+; 	cmp bx, 1
+; 	JNE check2
+	
+; check23:	
+; 	mov bh, 00h
+; 	mov ah, 0dh
+
+; 	mov cx, 0
+; 	mov dx, 101
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE next_cmp1
+; 	mov [indicator1], 1
+; next_cmp1:
+; 	mov cx, 5
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE next_cmp2
+; 	mov [indicator2], 1
+; next_cmp2:
+; 	mov dx, 151
+; 	mov cx, 0
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE next_cmp3
+; 	mov [indicator3], 1
+; next_cmp3:
+; 	mov cx, 5
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE return_sort
+; 	mov [indicator4], 1
+
+; check2:
+; 	cmp bx, 2
+; 	JE check13
+
+
+
+
+; check12:	
+
+; 	mov cx, 0
+; 	mov dx, 51
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE next_cmp7
+; 	mov [indicator1], 1
+; next_cmp7:
+; 	mov cx, 5
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE next_cmp8
+; 	mov [indicator2], 1
+; next_cmp8:
+; 	mov dx, 101
+; 	mov cx, 0
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE next_cmp9
+; 	mov [indicator3], 1
+; next_cmp9:
+; 	mov cx, 5
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE return_sort
+; 	mov [indicator4], 1
+; 	JMP return_sort
+; 	;;;;;;;;
+
+; 	return_sort:
+; 	ret
+
+; check13:	
+
+; 	mov cx, 0
+; 	mov dx, 51
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE next_cmp4
+; 	 mov [indicator1], 1
+; next_cmp4:
+; 	mov cx, 5
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE next_cmp5
+; 	mov [indicator2], 1
+; next_cmp5:
+; 	mov dx, 151
+; 	mov cx, 0
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE next_cmp6
+; 	mov [indicator3], 1
+; next_cmp6:
+; 	mov cx, 5
+
+; 	int 10h
+; 	cmp al, [block_color]
+; 	JNE return_sort
+; 	mov [indicator4], 1
+; 	JMP return_sort
 ENDP check_rows
+
 PROC multiply  ;;does ax times bx at ax
  	mov cx, ax
 multy:
@@ -1136,6 +1694,98 @@ d:
 	pop bx
 	ret
 ENDP delay
+
+PROC randomize
+push dx
+
+push ax
+push cx
+	mov ah, 0h 	;get system time
+	int 1ah
+	mov ax,dx
+	xor dx,dx
+	mov cx, 3
+	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
+	add dx, 1
+	mov bx, dx
+pop cx
+pop ax
+pop dx
+ret
+ENDP randomize
+
+PROC break
+	mov ax, [progress]
+	cmp ax, [best]
+	JLE not_new_best
+	mov [best], ax
+	call print_score
+not_new_best:
+
+	; cmp [progress], 4
+	; JNE bad_job
+
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 8h ; row
+	mov dl, 05h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [good_job]
+	int 21h
+bad_job:
+
+	mov [player_y], 101
+	mov [progress], 0
+	mov [block1len], 0
+	mov [block1_x], 1
+	mov [block1_e], 0
+	;mov [pressed], 0
+
+	mov [block2len], 0
+	mov [block2_x], 1
+	mov [block2_e], 0
+
+
+	mov [block3len], 0
+	mov [block3_x], 1
+	mov [block3_e], 0
+
+	mov [block4len], 0
+	mov [block4_x], 1
+	mov [block4_e], 0
+
+	mov [speed], 10500
+	mov ah, 00h
+	int 16h
+
+
+mmm:
+	cmp al, 31h
+	JNE rules1
+
+	mov [hard_mode], 0
+	mov bx, offset start_the_game
+	mov [address], bx
+	JMP [address]
+
+rules1:
+	cmp al, 1bh
+	JNE hard_mode1
+	call opening_screen
+
+hard_mode1:
+	cmp al, 32h
+	JNE mmm
+	mov [hard_mode], 1
+	mov bx, offset start_the_game
+	mov [address], bx
+	JMP [address]
+
+
+ENDP break
+
 exit:
 	mov ax, 4c00h
 	int 21h
