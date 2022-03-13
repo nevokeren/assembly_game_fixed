@@ -125,9 +125,10 @@ DATASEG
 		backgroundcolor db 11h
 		block_color db 15
 		normal_block_color db 15
-		jmp_block_color db 20h
+		slide_block_color db 20h
 		slide_block_frame db 36h
 		normal_block_frame db 0
+		jmp_block_frame db 2
 		
 	;player data
 		player_y dw 101
@@ -1007,54 +1008,59 @@ third_block:
 		call move_slide_block
 
 fourth_block:
-		; mov dx, [speed]
-		; call delay
+		mov dx, [speed]
+		call delay
 
-		; cmp [block4_e], 00
-		; JNE block4_exist
 
+		cmp [block4_e], 00
+		JNE block4_exist
+		
 		; call randomize_course
 		; cmp [random], 0
-		; JNE tt
-		;ret
+		; JE fourth_block
 
-; tt:
-; 	indicator_is_fine5:
-; 		mov ah, 0h 	;get system time
-; 		int 1ah
-; 		mov ax,dx
-; 		xor dx,dx
-; 		mov cx, 450
-; 		div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
-; 		add dx, 1
-; 		cmp dx, 320
-; 		JE set_len2
-; 		ret
+		
+		mov ah, 0h 	;get system time
+		int 1ah
+		mov ax,dx
+		xor dx,dx
+		mov cx, 20
+		div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
+		add dx, 1
+		cmp dx, 16
+		JNE delays
 
-; 	set_len2:
-; 		mov [block4_e], 1
-; 		call randomize_len
-; 		mov ax, [random_len]
-; 		mov [block4len], ax
+	set_len11:
+		mov [block4_e], 1
+		inc [blocks_on_screen]
+		mov bx, 3
+		call randomize_len
+		mov ax, [random_len]
+		mov [block4len], ax
 
-; 	;set y
-; 		cmp [random], 1
-; 		JNE cmp7
-; 		mov [block4_y], 50
-; 		JMP block4_exist
-; 	cmp7:
-; 		cmp [random], 2
-; 		JNE cmp8
-; 		mov [block4_y], 100
-; 		JMP block4_exist
-; 	cmp8:
-; 		mov [block4_y], 150
+		mov bx, [blocks_array_address]
+		mov al, [bx]
+		mov [random], al
+		add [blocks_array_address], 1
 
-; 	block4_exist:	
-; 		mov bx, 4
-; 		call move_block
+	;set y
+		cmp [random], 1
+		JNE cmp7
+		mov [block4_y], 50
+		JMP block4_exist
+	cmp7:
+		cmp [random], 2
+		JNE cmp8
+		mov [block4_y], 100
+		JMP block4_exist
+	cmp8:
+		mov [block4_y], 150
 
+	block4_exist:	
+		mov bx, 3
+		call move_jmp_block
 
+delays:
 mov dx, [blocks_on_screen]
 mov ax, 4
 sub ax, dx
@@ -1156,7 +1162,7 @@ fine:
 
  normal_color:
  mov ah, 0ch
-	mov al, [jmp_block_color]
+	mov al, [slide_block_color]
 	int 10h
 	JMP increases
  speciel_color:
@@ -1307,6 +1313,121 @@ return4:
 ENDP move_block
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+PROC move_jmp_block
+	mov cx, [block4_x]
+	mov dx, [block4_y]
+
+	mov [block_lower], dx
+	add [block_lower], 30
+
+	mov [block_end], cx
+	mov ax, [block4len]
+	sub [block_end], ax
+	cmp [block_end], 0
+	JL end_is_lower_0
+
+	JMP start_deleting1
+
+end_is_lower_0:
+	mov [block_end], 00
+
+start_deleting1:
+ 	mov ah, 0ch
+ 	mov bh, 00h
+	mov al, [backgroundcolor]
+ 	int 10h
+ 	dec cx
+ 	cmp cx, [block_end]
+ 	JNE start_deleting1
+ 	inc dx
+ 	mov cx, [block4_x]
+ 	cmp dx, [block_lower]
+ 	JNE start_deleting1
+
+ 	inc [block4_x]
+	cmp [block4_x], 319
+	JNE fine1
+	dec [block4_x]
+
+short_block_len1:
+	dec [block4len]
+	cmp [block4len], 0
+	JA fine1
+	mov [block4_e], 00
+	dec [blocks_on_screen]
+	sub [speed], 100
+	inc [progress]
+	mov [block4_x], 01
+	mov [block4_y], 00
+	mov [pressed], 0
+	ret
+fine1:
+
+ 	mov cx, [block4_x]
+ 	mov dx, [block4_y]
+ 	mov [block_end], cx
+ 	mov ax, [block4len]
+ 	sub [block_end], ax
+ 	cmp [block_end], 0
+ 	JL lower_then_0
+ 	JMP start_drawing1
+ lower_then_0:
+ 	mov [block_end], 00
+ start_drawing1:
+ 	inc [block_end]
+	dec [block_lower]
+
+ 	cmp cx, [block4_x]
+ 	JE speciel_color1
+
+	cmp cx, [block_end]
+	JE speciel_color1
+
+	cmp dx, [block3_y]
+	JE speciel_color1
+
+	cmp dx, [block_lower]
+	JE speciel_color1
+
+	mov ah, 50
+	push cx
+	mov cx, dx
+	call cx_%_2
+	cmp ah, 0
+	pop cx
+	JE speciel_color1
+
+ normal_color1:
+ mov ah, 0ch
+	mov al, [slide_block_color]
+	int 10h
+	JMP increases1
+ speciel_color1:
+	mov ah, 0ch
+ 	mov al, [jmp_block_frame]
+ 	int 10h
+ increases1:
+  	dec [block_end]
+	inc [block_lower]
+
+
+	dec cx
+	cmp cx, [block_end]
+	JNE start_drawing1
+	mov cx, [block4_x]
+	inc dx
+	cmp dx, [block_lower]
+	JNE start_drawing1
+
+	cmp [block_end], 307
+	JNE do_not_draw_player1
+	mov [upwards], 1
+	call create_the_player
+do_not_draw_player1:
+	ret
+ENDP move_jmp_block
+
+
 PROC draw_block
 	mov al, [backgroundcolor]
 ;mov al, dl
@@ -1324,7 +1445,7 @@ draw_in_range:
 	push cx
 	sub cx, [block_len]
 	cmp cx, 00
-	JL lower_then_0
+	JL lower_then_0_
 	mov [block_end], cx
 	pop cx
 	cmp [block_end], 319
@@ -1334,7 +1455,7 @@ draw_in_range:
 cnte:
 	JMP delete_block
 
-lower_then_0:
+lower_then_0_:
 	mov [block_end], 00
 	pop cx
 delete_block:
@@ -1399,7 +1520,7 @@ start_draw_the_frame:
 	 JMP checks
 
 
-speciel_color1:
+speciel_color2:
 dec [block_end]
 inc [block_lower]
 	mov ah, 0ch
@@ -1489,7 +1610,7 @@ randstart:			;create randoms
 ; 	inc [random]
 ; 	mov dx, [random]
 ; 	JE random_isnt_1
-; 	cmp al, [jmp_block_color]
+; 	cmp al, [slide_block_color]
 ; 	JE randomize_course
 ; 	ret
 ; random_isnt_1:
@@ -1504,7 +1625,7 @@ randstart:			;create randoms
 ; 	inc [random]
 ; 	mov dx,[random]
 ; 	JE random_isnt_2
-; 	cmp al, [jmp_block_color]
+; 	cmp al, [slide_block_color]
 ; 	JE randomize_course
 ; 	ret
 ; random_isnt_2:
@@ -1518,7 +1639,7 @@ randstart:			;create randoms
 ; 	mov [random], 0
 ; 	ret
 ; check_and_return:
-; 	cmp al, [jmp_block_color]
+; 	cmp al, [slide_block_color]
 ; 	JNE return_with_random
 ; 	mov [random], 0
 ; 	ret
@@ -1720,8 +1841,8 @@ PROC break
 	JLE not_new_best
 	mov [best], ax
 	call print_score
-not_new_best:
 
+not_new_best:
 	; cmp [progress], 4
 	; JNE bad_job
 
@@ -1734,8 +1855,8 @@ not_new_best:
 	mov ah, 09h ; write string to standart output
 	lea dx, [good_job]
 	int 21h
-bad_job:
 
+bad_job:
 	mov [player_y], 101
 	mov [progress], 0
 	mov [block1len], 0
@@ -1746,7 +1867,6 @@ bad_job:
 	mov [block2len], 0
 	mov [block2_x], 1
 	mov [block2_e], 0
-
 
 	mov [block3len], 0
 	mov [block3_x], 1
@@ -1759,7 +1879,6 @@ bad_job:
 	mov [speed], 10500
 	mov ah, 00h
 	int 16h
-
 
 mmm:
 	cmp al, 31h
@@ -1782,12 +1901,9 @@ hard_mode1:
 	mov bx, offset start_the_game
 	mov [address], bx
 	JMP [address]
-
-
 ENDP break
 
 exit:
 	mov ax, 4c00h
 	int 21h
-
 END start
