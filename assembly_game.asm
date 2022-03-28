@@ -2,120 +2,127 @@ IDEAL
 
 MODEL small
 
-STACK 100h
+STACK 10h
 
 DATASEG
 	;grafics arrays
-		blocks_array db 3, 2, 1, 3, 3, 2, 1, 2, 1, 3, 2, 1, 2, 1, 3, 1, 3, 2, 1, 2, 1, 2, 1, 3, 2
-					db , 3, 2, 3, 1, 2, 3, 1, 2, 1, 1, 3, 2, 3, 2, 3, 1, 2, 3, 1, 1, 1, 2, 1, 2, 1
-					db, 1, 1, 3, 2, 2, 3, 1, 2, 2, 3, 1, 3, 1, 2, 3, 2, 1, 3, 3, 1, 1, 2, 1, 1, 2
-					db 3, 1, 1, 3, 3, 1, 2, 3, 1, 1, 2, 3, 2, 3, 1, 1, 1, 3, 1, 2, 1, 3, 1, 1, 2, 1
-					db, 1, 2, 1, 3, 1, 2, 1, 1, 1, 3, 2, 3, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1, 3, 2, 1
-					db, 2, 1, 1, 1, 2, 3, 1, 3, 1, 3, 2, 3, 2, 1, 3, 2, 1, 3, 1, 3, 2, 2, 1, 1, 1, 3
-					db, 1, 3, 2, 1, 2, 3, 2, 1, 2, 1, 2, 1, 3, 1, 2, 2, 3, 2, 3, 1, 1, 2, 3, 2, 3, 1
-					db, 2, 1, 3, 2, 1, 2, 1, 1, 3, 1, 3, 1, 2, 3, 1, 3, 2, 1, 3, 1, 1, 1, 2, 3, 3, 2
-					db, 3, 2, 1, 3, 2, 3, 2, 1, 3, 2, 1, 2, 3, 1, 2, 1, 3, 2, 2, 3, 2, 1, 2, 2, 3, 2
-					db, 3, 1, 1, 3, 2, 1, 2, 3, 3, 1, 2, 3, 3, 1, 2, 3, 1, 3, 1, 3, 1, 2, 2, 3, 1, 1
-					db, 3, 1, 1, 2, 1, 3, 2, 3, 1, 3, 3, 2, 3, 2, 1, 2, 2, 1, 3, 1, 3, 2, 3, 1, 2, 2
-					db, 2, 2, 1, 3, 3, 1, 3, 2, 3, 3, 1, 2, 3, 2, 1, 3, 1, 2, 1, 2, 3, 2, 1, 3, 2, 3
-					db, 3, 1, 3, 3, 1, 3, 3, 1, 1, 1, 2, 2, 3, 2, 3, 2, 1, 2, 1, 3, 1, 3, 2, 1, 3, 1
-					db, 1, 1, 2, 1, 1, 3, 2, 1, 2, 3, 1, 3, 3, 3, 2, 1, 2, 1, 1, 2, 1, 2, 3, 1, 3, 1
-					db, 1, 3, 2, 3, 1, 1, 3, 2, 3, 3, 2, 2, 2, 3, 1, 2, 2, 3, 2, 3, 1, 2, 3, 2, 3, 2
-					db, 3, 2, 1, 2, 3, 2, 3, 1, 2, 1, 2, 1, 1, 3, 1, 1, 1, 3, 1, 2, 3, 2, 1, 1, 2, 3
-					db, 2, 1, 3, 2, 1, 2, 1, 3, 3, 1, 2, 3, 2, 3, 2, 3, 3, 2, 2, 3, 1, 3, 1, 2, 3, 1
-					db, 1, 2, 3, 2, 3, 2, 1, 2, 1, 2, 3, 1, 2, 1, 3, 3, 2, 1, 3, 1, 2, 1, 3, 2, 1, 2
-					db, 3, 2, 1, 2, 3, 2, 1, 3, 2, 1, 2, 3, 1, 2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 2, 3, 3
-					db, 3, 3, 1, 1, 3, 3, 2, 3, 2, 1, 3, 2, 1, 2, 3, 2, 1, 3, 1, 2, 3, 3
+		blocks_array db 3, 2, 1, 3, 1, 2, 1, 2, 1, 3, 2, 1, 2, 1, 3, 1, 3, 2, 1, 2, 1, 2, 1, 3, 2
+					db , 3, 2, 3, 1, 2, 3, 1, 2, 1, 2, 3, 2, 3, 2, 3, 1, 2, 3, 1, 2, 1, 2, 1, 2, 1
+					db, 1, 2, 3, 1, 2, 3, 1, 3, 2, 3, 1, 3, 1, 2, 3, 2, 1, 2, 3, 2, 1, 2, 3, 1, 2
+					db 3, 1, 2, 3, 2, 1, 2, 3, 1, 3, 2, 3, 2, 3, 1, 2, 1, 3, 1, 2, 1, 3, 1, 3, 2, 1
+					db, 1, 2, 1, 3, 1, 2, 1, 2, 1, 3, 2, 3, 1, 2, 1, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1
+					db, 2, 1, 2, 1, 2, 3, 1, 3, 1, 3, 2, 3, 2, 1, 3, 2, 1, 3, 1, 3, 2, 3, 1, 3, 1, 3
+					db, 1, 3, 2, 1, 2, 3, 2, 1, 2, 1, 2, 1, 3, 1, 2, 1, 3, 2, 3, 1, 3, 2, 3, 2, 3, 1
+					db, 2, 1, 3, 2, 1, 2, 3, 1, 3, 1, 3, 1, 2, 3, 1, 3, 2, 1, 3, 1, 3, 1, 2, 1, 3, 2
+					db, 3, 2, 1, 3, 2, 3, 2, 1, 3, 2, 1, 2, 3, 1, 2, 1, 3, 1, 2, 3, 2, 1, 3, 2, 3, 2
+					db, 3, 1, 2, 3, 2, 1, 2, 3, 2, 1, 2, 1, 3, 1, 2, 3, 1, 3, 1, 3, 1, 3, 2, 3, 2, 1
+					db, 3, 2, 1, 2, 1, 3, 2, 3, 1, 3, 1, 2, 3, 2, 1, 3, 2, 1, 3, 1, 3, 2, 3, 1, 3, 2
+					db, 2, 3, 1, 2, 3, 1, 3, 2, 3, 2, 1, 2, 3, 2, 1, 3, 1, 2, 1, 2, 3, 2, 1, 3, 2, 3
+					db, 3, 1, 3, 2, 1, 3, 2, 1, 2, 1, 2, 1, 3, 2, 3, 2, 1, 2, 1, 3, 1, 3, 2, 1, 3, 1
+					db, 1, 3, 2, 3, 1, 3, 2, 1, 2, 3, 1, 3, 1, 3, 2, 1, 2, 1, 3, 2, 1, 2, 3, 1, 3, 1
+					db, 1, 3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 2, 3, 1, 2, 1, 3, 2, 3, 1, 2, 3, 2, 3, 2
+					db, 3, 2, 1, 2, 3, 2, 3, 1, 2, 1, 2, 1, 2, 3, 1, 2, 1, 3, 1, 2, 3, 2, 3, 1, 2, 3
+					db, 2, 1, 3, 2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 3, 2, 3, 2, 1, 2, 3, 1, 3, 1, 2, 3, 1
+					db, 1, 2, 3, 2, 3, 2, 1, 2, 1, 2, 3, 1, 2, 1, 3, 1, 2, 1, 3, 1, 2, 1, 3, 2, 1, 2
+					db, 3, 2, 1, 2, 3, 2, 1, 3, 2, 1, 2, 3, 1, 2, 1, 2, 1, 3, 2, 1, 2, 3, 2, 3, 1, 3
+					db, 3, 2, 1, 2, 3, 1, 2, 3, 2, 1, 3, 2, 1, 2, 3, 2, 1, 3, 1, 2, 3, 1
 
-		player_grafics_sliding  db 't', 't', 't', 27, 27, 27, 27, 't', 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 27, 27, 27, 27, 27, 't', 't', 't', 't', 'n' 
-								db 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n'  
-								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
-								db 't', 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 't', 'n'
-								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 0, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55 ,55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 0 ,55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 't', 4, 4, 4, 4, 4, 4,4, 4, 4, 4, 't', 'n'
-								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n'  
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 27, 27, 27, 27, 27, 't', 't', 't', 't', 'n' 
-								db 't', 't', 't', 27, 27, 27, 27, 't', 't', 't', 't', 't', 's'
+		mario_jumping db 15h, 15h, 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 15h, 15h, 15h, 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 15h, 15h, 15h, 't', 't' ,'t', 't', 28h, 28h, 28h, 28h, 28h, 't', 't', 't', 't', 't', 'n'
+						db 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 't', 't', 't', 't', 'n'
+						db 't', 28h, 28h, 't', 't', 't', 40h, 40h, 12h, 12h, 12h, 12h, 't', 't', 't', 't', 't', 'n'
+						db 't', 28h, 40h, 40h, 40h, 40h, 0, 40h, 40h, 12h, 40h, 40h, 12h, 't', 't', 't', 't', 'n'
+						db 't', 28h, 40h, 40h, 40h, 0, 40h, 40h, 40h, 12h, 40h, 40h, 12h, 't', 't', 't', 't', 'n'
+						db 't', 40h, 40h, 40h, 40h, 0, 40h, 40h, 12h, 12h, 40h, 40h, 12h, 't', 't', 't', 't', 'n'
+						db 't', 't', 0, 0, 0, 0, 0, 40h, 40h, 40h, 40h, 12h, 12h, 12h, 't', 't', 't', 'n'
+						db 't', 't', 28h, 40h, 40h, 40h, 40h, 40h, 40h, 40h, 40h, 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 28h, 28h, 37h, 28h, 28h, 37h, 37h, 28h, 28h, 28h, 28h, 28h, 't', 't', 'n'
+						db 't', 't', 't', 't', 28h, 37h, 28h, 37h, 37h, 37h, 28h, 28h, 28h, 28h, 28h, 15h, 15h, 'n'
+						db 't', 't', 't', 't', 28h, 2ch, 37h, 37h, 2ch, 37h, 28h, 28h, 't', 't', 15h, 15h, 15h, 'n'
+						db 't', 't', 't', 't', 't', 2ch, 37h, 37h, 2ch, 37h, 28h, 28h, 't', 't', 't', 15h, 15h, 'n'
+						db 't', 't', 12h, 't', 't', 37h, 37h, 37h, 37h, 37h, 37h, 37h, 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 't', 't', 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 12h, 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 12h, 12h, 12h, 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 't', 't', 't', 37h, 37h, 37h, 12h, 12h, 12h, 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 37h, 37h, 37h, 12h, 12h, 12h, 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 12h, 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 's'
 
-		player_grafics_upwards  db 't', 't', 't', 't', 't', 't', 't', 't', 27, 27, 27, 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 27, 't', 'n' 
-								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n'  
-								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
-								db 't', 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 't', 'n'
-								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 0, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55 ,55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 0 ,55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 't', 4, 4, 4, 4, 4, 4,4, 4, 4, 4, 't', 'n'
-								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n' 
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 27, 't', 'n' 
-								db 't', 't', 't', 't', 't', 't', 't', 't', 27, 27, 27, 't', 's'
+		mario_walking  db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't','t', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't' ,'t', 't', 28h, 28h, 28h, 28h, 28h, 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 40h, 40h, 12h, 12h, 12h, 12h, 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 40h, 40h, 40h, 40h, 0, 40h, 40h, 12h, 40h, 40h, 12h, 't', 't', 't', 't', 'n'
+						db 't', 't', 40h, 40h, 40h, 0, 40h, 40h, 40h, 12h, 40h, 40h, 12h, 't', 't', 't', 't', 'n'
+						db 't', 40h, 40h, 40h, 40h, 0, 40h, 40h, 12h, 12h, 40h, 40h, 12h, 't', 't', 't', 't', 'n'
+						db 't', 't', 0, 0, 0, 0, 0, 40h, 40h, 40h, 40h, 12h, 12h, 12h, 't', 't', 't', 'n'
+						db 't', 't', 't', 40h, 40h, 40h, 40h, 40h, 40h, 40h, 40h, 't', 't', 't', 't', 't', 't', 'n'
+						db 15h, 15h, 't', 't', 't', 't', 28h, 28h, 37h, 37h, 28h, 28h, 28h, 28h, 28h, 't', 't', 'n'
+						db 15h, 15h, 15h, 28h, 28h, 28h, 28h, 37h, 37h, 37h, 28h, 28h, 28h, 28h, 28h, 15h, 15h, 'n'
+						db 15h, 15h, 28h, 28h, 28h, 37h, 37h, 37h, 2ch, 37h, 28h, 28h, 't', 't', 15h, 15h, 15h, 'n'
+						db 't', 't', 't', 't', 't', 37h, 37h, 37h, 2ch, 37h, 28h, 28h, 't', 't', 't', 15h, 15h, 'n'
+						db 't', 't', 12h, 't', 't', 37h, 37h, 37h, 37h, 37h, 37h, 37h, 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 't', 't', 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 't', 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 't', 't', 't', 37h, 37h, 12h, 12h, 12h, 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 12h, 12h, 12h, 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't',12h, 12h, 12h, 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 's'
 
-		player_grafics_downward db 't', 't', 't', 't', 't', 't', 't', 't', 27, 27, 27, 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 27, 't', 'n' 
-								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n'  
-								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
-								db 't', 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 't', 'n'
-								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 0, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55 ,55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 15, 15, 15, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 0, 0, 0, 15, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 0, 0 ,55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 4, 4, 'n'
-								db 't', 4, 4, 4, 4, 4, 4,4, 4, 4, 4, 't', 'n'
-								db 't', 't', 4, 4, 4, 4, 4, 4, 4, 4, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't','n' 
-								db 't', 't', 't', 't', 't', 't', 27, 27, 't', 't', 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 't', 't', 'n'
-								db 't', 't', 't', 't', 't', 't', 27, 27, 27, 27, 27, 't', 'n' 
-								db 't', 't', 't', 't', 't', 't', 't', 't', 27, 27, 27, 't', 's'
+
+		mario_sliding   db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 't', 't' ,'t', 't', 28h, 28h, 28h, 28h, 28h, 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 't', 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 28h, 't', 't', 't', 't', 'n'
+						db 't', 't', 40h, 40h, 40h, 40h, 0, 40h, 40h, 12h, 40h, 40h, 12h, 't', 't', 't', 't', 'n'
+						db 't', 't', 40h, 40h, 40h, 40h, 40h, 40h, 40h, 12h, 40h, 40h, 12h, 't', 't', 't', 't', 'n'
+						db 't', 't', 40h, 40h, 40h, 0, 40h, 40h, 12h, 12h, 40h, 12h, 12h, 12h, 't', 't', 't', 'n'
+						db 't', 't', 't', 0, 0, 0, 0, 40h, 40h, 40h, 40h, 't', 't', 't', 't', 't', 't', 'n'
+						db 15h, 15h, 15h, 28h, 28h, 28h, 37h, 37h, 28h, 28h, 28h, 28h, 28h, 15h, 15h, 'n'
+						db 't', 't', 't', 't', 't', 37h, 37h, 37h, 2ch, 37h, 28h, 28h, 't', 't', 't','t', 't', 'n'
+						db 't', 't', 12h, 't', 't', 37h, 37h, 37h, 37h, 37h, 37h, 37h, 't', 't', 't', 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 't', 't', 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 37h, 't', 't', 't', 'n'
+						db 't', 't', 12h, 12h, 37h, 37h, 37h, 37h, 't', 't', 't', 37h, 37h, 12h, 12h, 12h, 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 12h, 12h, 12h, 't', 'n'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't',12h, 12h, 12h, 't', 't', 's'
+						db 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 't', 's'
+
+		
+		
+		
+
 	;far jumps
 		address dw 00
 		blocks_array_address dw offset blocks_array
@@ -128,7 +135,8 @@ DATASEG
 		slide_block_color db 20h
 		slide_block_frame db 36h
 		normal_block_frame db 0
-		jmp_block_frame db 2
+		jmp_block_frame db 4
+		jmp_block_color db  6
 		
 	;player data
 		player_y dw 101
@@ -190,7 +198,7 @@ DATASEG
 			block6_e dw 00
 		;general
 			block_y dw 00
-			block_x dw, 00
+			block_x dw 00
 			block_len dw 00
 			block_end dw 00
 			block_lower dw 00
@@ -205,14 +213,18 @@ DATASEG
 		indicator4 dw 00
 		len dw 00
 		pressed db 0
+		pressed1 db 0
+		time_for_speciel db 0
 	;strings
 	rules db 'Rules:', '$'
 	how_to_move_up db '-press UP to move up', '$'
 	how_to_move_down db '-press DOWN to move down', '$'
-	how_to_eliminate db '-if you touch the white blocks',  '$'
+	how_to_eliminate db '-if you touch the blocks of any color',  '$'
 	die db 'you will die','$'
-	how_to_jump db '-if you see a blue block ahead ', '$'
-	jump db 'press left to slide under it', '$'
+	how_to_jump db '-if you see a blue block ahead', '$'
+	jump db 'press LEFT to jump over it', '$'
+	what_to_slide db '-if you see a red block ahead','$'
+	slide db 'press RIGHT to crouch under it'
 	normal_hard db '-if you want to play normal mode ', '$'
 	press_1 db 'press 1', '$'
 	hard db '-if you want to play hard mode','$'
@@ -328,11 +340,31 @@ black:
 	mov ah, 09h ; write string to standart output
 	lea dx, [jump]
 	int 21h
-;;;;;;;;;;;;;;;;;;;;;;;
+
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
 	mov dh, 013h ; row
 	mov dl, 05h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [what_to_slide]
+	int 21h
+
+		mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 015h ; row
+	mov dl, 05h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [slide]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 017h ; row
+	mov dl, 5h ; columns
 	int 10h
 
 	mov ah, 09h ; write string to standart output
@@ -341,8 +373,8 @@ black:
 ;;;;;;;;;;;;;;
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
-	mov dh, 015h ; row
-	mov dl, 07h ; columns
+	mov dh, 019h ; row
+	mov dl, 05h ; columns
 	int 10h
 
 	mov ah, 09h ; write string to standart output
@@ -410,7 +442,7 @@ delete_the_player:
 xxx:
 	int 10h
 	inc cx
-	cmp cx, 307
+	cmp cx, 315
 	JNE xxx
 	inc dx
 	mov cx, 295
@@ -430,15 +462,15 @@ create_the_playerf:
 	mov bh, 00h
 	cmp [upwards], 1
 	JNE draw_downwards
-	mov bx, offset player_grafics_upwards
+	mov bx, offset mario_walking
 	JMP drw
 draw_downwards:
-	cmp [upwards], 2
-	JNE draw_sliding
-	mov bx, offset player_grafics_downward
+	cmp [upwards], 3
+	JNE draw_jumping
+	mov bx, offset mario_sliding
 	JMP drw
-draw_sliding:
-	mov bx, offset player_grafics_sliding
+draw_jumping:
+	mov bx, offset mario_jumping
 drw:
 	mov ah, 0ch
 color_player:
@@ -468,31 +500,34 @@ ENDP create_the_player
 PROC eliminate
 	mov cx, [player_y]
 	sub cx, 1
+	mov dx, offset break
 	cmp [block1_x], 295
 	JNE next_checkout1
 	cmp [block1_y], cx
 	JNE next_checkout1
-	call break
+	JMP dx
 next_checkout1:
 	cmp [block2_x], 295
 	JNE next_checkout2
 	cmp [block2_y], cx
 	JNE next_checkout2
-	call break
+	JMP dx
 next_checkout2:
-	cmp [pressed], 1
+	cmp [pressed1], 1
 	JE next_checkout3
 	cmp [block3_x], 295
 	JNE next_checkout3
 	cmp [block3_y], cx
 	JNE next_checkout3
-	call break
+	JMP dx
 next_checkout3:
+	cmp [pressed], 1
+	JE next_checkout4
 	cmp [block4_x], 295
 	JNE next_checkout4
 	cmp [block4_y], cx
 	JNE next_checkout4
-	call break
+	JMP dx
 next_checkout4:
 	ret
 ENDP eliminate
@@ -627,7 +662,7 @@ normal_delete:
 	
 	int 10h
 	inc cx
-	cmp cx, 307
+	cmp cx, 315
 	JNE delete_player1
 continue_deleting1:
 	mov cx, 295
@@ -653,7 +688,7 @@ maybe_eliminated1:
 not_eliminated1:
 
 	sub dx, 29
-	mov bx, offset player_grafics_downward
+	mov bx, offset mario_walking
 	mov ah, 0ch
 color_player2:
 	mov al, [bx]
@@ -723,7 +758,7 @@ delete_player:
 normal_delete1:
 	int 10h
 	inc cx
-	cmp cx, 307
+	cmp cx, 315
 	JNE delete_player
 continue_deleting:
 	mov cx, 295
@@ -747,7 +782,7 @@ maybe_eliminated:
 	call break
 not_eliminated:
 
-	mov bx, offset player_grafics_upwards
+	mov bx, offset mario_jumping
 	mov ah, 0ch
 color_player1:
 	mov al, [bx]
@@ -775,7 +810,11 @@ color_player1:
 	 pop [loop_]
 	cmp [loop_], dx
 	JNE mov_up
+
+	mov [upwards], 1
+	call create_the_player
 	ret
+
 continue_check1:
 	cmp al, 't'
 	JNE draw_player1
@@ -811,11 +850,19 @@ wait_:					;wait for data
 
 	cmp ah, 4bh
 	JNE next
-	mov [pressed], 1
-	mov [upwards], 3
+	mov [pressed], 0
+	mov [pressed1], 1
+	mov [upwards], 4
 	call create_the_player
 
 next:
+	cmp ah,4dh
+	JNE next2
+	mov [pressed1], 0
+	mov [pressed], 1
+	mov [upwards], 3
+	call create_the_player
+next2:
 	cmp ah, 48h
 	JNE next1
 	cmp [player_y], 51
@@ -830,26 +877,34 @@ next1:
 	call move_down
 
 sort_the_game:
-	;mov ax, [speed]
 	mov bx, [speed]
 	cmp bx, 500
 	JAE count
 	mov bx, 500
+	mov [speed], 500
 count:
 	cmp [loop2_], bx
-	JNE main
+	JL main
 	mov [loop2_], 00
 	call sort
 	call print_score
+	; call check_for_running
+
 	mov ax, 00
 
-
-;delay_to_
+inc [time_for_speciel]
+cmp [time_for_speciel], 140
+JNE delay_to_
+mov [time_for_speciel], 0
+mov [pressed], 0
+mov [pressed1], 0
+mov [upwards], 1
+call create_the_player
+delay_to_:
 	JMP main
 ENDP main
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 PROC sort
-
 first_block:
 		mov dx, 65500
 		call delay
@@ -876,6 +931,7 @@ first_block:
 	;set len
 		mov [block1_e], 1
 		inc [blocks_on_screen]
+		mov bx, 2
 		call randomize_len
 		mov ax, [random_len]
 		mov [block1len], ax
@@ -928,6 +984,7 @@ second_block:
 	;set len
 		mov [block2_e], 1
 		inc [blocks_on_screen]
+		mov bx, 2
 		call randomize_len
 		mov ax, [random_len]
 		mov [block2len], ax
@@ -971,10 +1028,10 @@ third_block:
 		int 1ah
 		mov ax,dx
 		xor dx,dx
-		mov cx, 20
+		mov cx, 100
 		div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 		add dx, 1
-		cmp dx, 16
+		cmp dx, 36
 		JNE fourth_block
 
 	set_len:
@@ -1024,7 +1081,7 @@ fourth_block:
 		int 1ah
 		mov ax,dx
 		xor dx,dx
-		mov cx, 20
+		mov cx, 100
 		div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 2)
 		add dx, 1
 		cmp dx, 16
@@ -1061,13 +1118,13 @@ fourth_block:
 		call move_jmp_block
 
 delays:
-mov dx, [blocks_on_screen]
-mov ax, 4
-sub ax, dx
-; cmp dx, 0
-; JNE normal_delay
-mov dx, ax 
-;normal_delay:
+	mov dx, [blocks_on_screen]
+	mov ax, 4
+	sub ax, dx
+		; cmp dx, 0
+		; JNE normal_delay
+	mov dx, ax 
+		;normal_delay:
 	mov ax, 10000
 	call multiply
 	mov dx, ax
@@ -1122,7 +1179,8 @@ short_block_len:
 	inc [progress]
 	mov [block3_x], 01
 	mov [block3_y], 00
-	mov [pressed], 0
+	;mov [pressed], 0
+	;mov [pressed1], 0
 	ret
 fine:
 
@@ -1160,6 +1218,8 @@ fine:
 	pop cx
 	JE speciel_color
 
+	
+
  normal_color:
  mov ah, 0ch
 	mov al, [slide_block_color]
@@ -1182,11 +1242,73 @@ fine:
 	cmp dx, [block_lower]
 	JNE start_drawing
 
-	cmp [block_end], 307
+	cmp [block3_x], 296
+	JL do_not_draw_player
+	cmp [block3_y], 50
+	JNE check_second_row
+	cmp [player_y], 51
 	JNE do_not_draw_player
+	
+	push ax
+	push dx
+	push bx
+	push cx
+	mov [upwards], 2
+	call create_the_player
+	pop cx
+	pop bx
+	pop dx
+	pop ax
+
+check_second_row:
+	cmp [block3_y], 100
+	JNE check_third_row
+	cmp [player_y], 101
+	JNE do_not_draw_player
+	
+	push ax
+	push dx
+	push bx
+	push cx
+	mov [upwards], 2
+	call create_the_player
+	pop cx
+	pop bx
+	pop dx
+	pop ax
+
+check_third_row:
+	cmp [block3_y], 150
+	JNE do_not_draw_player
+	cmp [player_y], 151
+	JNE do_not_draw_player
+
+	push ax
+	push dx
+	push bx
+	push cx
+	mov [upwards], 2
+	call create_the_player
+	pop cx
+	pop bx
+	pop dx
+	pop ax
+do_not_draw_player:
+
+	cmp [block_end], 317
+	JNE lll
+	push ax
+	push dx
+	push bx
+	push cx
 	mov [upwards], 1
 	call create_the_player
-do_not_draw_player:
+	pop cx
+	pop bx
+	pop dx
+	pop ax
+
+lll:
 	ret
 ENDP move_slide_block
 PROC move_block    ;;;move/jenerate block in chosen course
@@ -1218,9 +1340,10 @@ move_first_block:
 	cmp bx, 8
 	JNE return1
 	mov [block1_e], 00
-	mov [pressed], 0
-	mov [upwards], 1
-	call create_the_player
+	;mov [pressed], 0
+	;mov [pressed1], 0
+	; mov [upwards], 1
+	; call create_the_player
 	dec [blocks_on_screen]
 	sub [speed], 100
 	mov [block1_x], 01
@@ -1247,9 +1370,10 @@ move_second_block:
 	cmp bx, 8
 	JNE return2
 	mov [block2_e], 00
-	mov [pressed], 0
-	mov [upwards], 1
-	call create_the_player
+	;mov [pressed], 0
+	;mov [pressed1], 0
+	; mov [upwards], 1
+	; call create_the_player
 	dec [blocks_on_screen]
 	sub [speed], 100
 
@@ -1359,7 +1483,8 @@ short_block_len1:
 	inc [progress]
 	mov [block4_x], 01
 	mov [block4_y], 00
-	mov [pressed], 0
+	;mov [pressed], 0
+	;mov [pressed1], 0
 	ret
 fine1:
 
@@ -1399,7 +1524,7 @@ fine1:
 
  normal_color1:
  mov ah, 0ch
-	mov al, [slide_block_color]
+	mov al, [jmp_block_color]
 	int 10h
 	JMP increases1
  speciel_color1:
@@ -1419,14 +1544,30 @@ fine1:
 	cmp dx, [block_lower]
 	JNE start_drawing1
 
-	cmp [block_end], 307
+	cmp [block_end], 315
 	JNE do_not_draw_player1
 	mov [upwards], 1
 	call create_the_player
 do_not_draw_player1:
+
+	; cmp [block4_x], 295
+	; Jl not_drawing_the_player
+
+
+	; push ax
+	; push bx
+	; push cx
+	; push dx
+
+	; call create_the_player
+
+	; pop dx
+	; pop cx
+	; pop bx
+	; pop ax
+not_drawing_the_player:
 	ret
 ENDP move_jmp_block
-
 
 PROC draw_block
 	mov al, [backgroundcolor]
@@ -1553,9 +1694,9 @@ call delay
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 80
+	mov cx, 100
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
-	add dx,50
+	add dx,30
 	cmp dx, [len]
 	JE randomize_len
 	mov [random_len], dx
@@ -1579,7 +1720,7 @@ short_len:
 	int 1ah
 	mov ax,dx
 	xor dx,dx
-	mov cx, 10
+	mov cx, 20
 	div cx 		;dx contains the resort_the_game of the cx devided by bx (from 0 to 4)
 	add dx, 1
 	cmp dx, [random_len]
@@ -1646,6 +1787,20 @@ randstart:			;create randoms
 ; return_with_random:
 	ret
 ENDP randomize_course
+
+PROC check_for_running
+	mov cx, 310
+	mov dx, 5
+	mov bh, 00
+	mov ah, 0dh
+	int 10h
+	cmp al, 15
+	JNE game_stopped
+	ret
+game_stopped:
+	call break
+	ret
+endp check_for_running
 
 PROC cx_%_2
 	mov ax, cx
@@ -1843,8 +1998,8 @@ PROC break
 	call print_score
 
 not_new_best:
-	; cmp [progress], 4
-	; JNE bad_job
+	 cmp [progress], 69
+	 JNE bad_job
 
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
@@ -1862,7 +2017,7 @@ bad_job:
 	mov [block1len], 0
 	mov [block1_x], 1
 	mov [block1_e], 0
-	;mov [pressed], 0
+	;;mov [pressed], 0
 
 	mov [block2len], 0
 	mov [block2_x], 1
@@ -1876,7 +2031,13 @@ bad_job:
 	mov [block4_x], 1
 	mov [block4_e], 0
 
+	mov [pressed], 0
+	mov [pressed1], 0
 	mov [speed], 10500
+
+	mov [loop2_], 0
+
+sss:
 	mov ah, 00h
 	int 16h
 
@@ -1896,7 +2057,7 @@ rules1:
 
 hard_mode1:
 	cmp al, 32h
-	JNE mmm
+	JNE sss
 	mov [hard_mode], 1
 	mov bx, offset start_the_game
 	mov [address], bx
