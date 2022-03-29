@@ -910,7 +910,7 @@ count:
 ; mov [pressed], 0
 ; mov [pressed1], 0
 ; mov [upwards], 1
-call create_the_player
+;call create_the_player
 delay_to_:
 	JMP main
 ENDP main
