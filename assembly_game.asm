@@ -224,10 +224,10 @@ DATASEG
 	how_to_jump db '-if you see a blue block ahead', '$'
 	jump db 'press LEFT to jump over it', '$'
 	what_to_slide db '-if you see a red block ahead','$'
-	slide db 'press RIGHT to crouch under it'
+	slide db 'press RIGHT to crouch under it','$'
 	normal_hard db '-if you want to play normal mode ', '$'
 	press_1 db 'press 1', '$'
-	hard db '-if you want to play hard mode','$'
+	hard db '-press 2 for hard mode','$'
 	press_2 db 'press 2', '$'
 	your_best db 'Your best:', '$'
 	good_job db 'GOOD JOB!!!', '$'
@@ -273,8 +273,8 @@ black:
 
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
-	mov dh, 05h ; row
-	mov dl, 03h ; columns
+	mov dh, 01h ; row
+	mov dl, 01h ; columns
 	int 10h
 
 	mov ah, 09h ; write string to standart output
@@ -283,12 +283,32 @@ black:
 ;;;;;;;;;;;;;;;;;;;;;;;
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
-	mov dh, 07h ; row
-	mov dl, 05h ; columns
+	mov dh, 03h ; row
+	mov dl, 03h ; columns
 	int 10h
 
 	mov ah, 09h ; write string to standart output
 	lea dx, [how_to_move_up]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 05h ; row
+	mov dl, 03h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [how_to_move_down]
+	int 21h
+;;;;;;;;;;;;;;;;;;;;;;;
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 07h ; row
+	mov dl, 03h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [how_to_eliminate]
 	int 21h
 ;;;;;;;;;;;;;;;;;;;;;;;
 	mov ah, 02h ; cursor position
@@ -298,33 +318,13 @@ black:
 	int 10h
 
 	mov ah, 09h ; write string to standart output
-	lea dx, [how_to_move_down]
-	int 21h
-;;;;;;;;;;;;;;;;;;;;;;;
-	mov ah, 02h ; cursor position
-	mov bh, 00h ; page number
-	mov dh, 0bh ; row
-	mov dl, 05h ; columns
-	int 10h
-
-	mov ah, 09h ; write string to standart output
-	lea dx, [how_to_eliminate]
-	int 21h
-;;;;;;;;;;;;;;;;;;;;;;;
-	mov ah, 02h ; cursor position
-	mov bh, 00h ; page number
-	mov dh, 0dh ; row
-	mov dl, 07h ; columns
-	int 10h
-
-	mov ah, 09h ; write string to standart output
 	lea dx, [die]
 	int 21h
 ;;;;;;;;;;;;;;;;;;;;;;;
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
-	mov dh, 0fh ; row
-	mov dl, 05h ; columns
+	mov dh, 0bh ; row
+	mov dl, 03h ; columns
 	int 10h
 
 	mov ah, 09h ; write string to standart output
@@ -333,8 +333,8 @@ black:
 ;;;;;;;;;;;;;;;;;;;;;;;
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
-	mov dh, 011h ; row
-	mov dl, 07h ; columns
+	mov dh, 0dh ; row
+	mov dl, 05h ; columns
 	int 10h
 
 	mov ah, 09h ; write string to standart output
@@ -343,8 +343,8 @@ black:
 
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
-	mov dh, 013h ; row
-	mov dl, 05h ; columns
+	mov dh, 0fh ; row
+	mov dl, 03h ; columns
 	int 10h
 
 	mov ah, 09h ; write string to standart output
@@ -353,7 +353,7 @@ black:
 
 		mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
-	mov dh, 015h ; row
+	mov dh, 011h ; row
 	mov dl, 05h ; columns
 	int 10h
 
@@ -363,8 +363,8 @@ black:
 ;;;;;;;;;;;;;;;;;;;;;;;
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
-	mov dh, 017h ; row
-	mov dl, 5h ; columns
+	mov dh, 013h ; row
+	mov dl, 03h ; columns
 	int 10h
 
 	mov ah, 09h ; write string to standart output
@@ -373,12 +373,22 @@ black:
 ;;;;;;;;;;;;;;
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
-	mov dh, 019h ; row
+	mov dh, 015h ; row
 	mov dl, 05h ; columns
 	int 10h
 
 	mov ah, 09h ; write string to standart output
 	lea dx, [press_1]
+	int 21h
+
+	mov ah, 02h ; cursor position
+	mov bh, 00h ; page number
+	mov dh, 017h ; row
+	mov dl, 03h ; columns
+	int 10h
+
+	mov ah, 09h ; write string to standart output
+	lea dx, [hard]
 	int 21h
 call break
 ENDP opening_screen
@@ -837,6 +847,7 @@ not_color1:
 ENDP move_up
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 PROC main
+main1:
 	call eliminate
 	add [loop2_], 1
 
@@ -884,7 +895,7 @@ sort_the_game:
 	mov [speed], 500
 count:
 	cmp [loop2_], bx
-	JL main
+	JL main1
 	mov [loop2_], 00
 	call sort
 	call print_score
@@ -892,13 +903,13 @@ count:
 
 	mov ax, 00
 
-inc [time_for_speciel]
-cmp [time_for_speciel], 140
-JNE delay_to_
-mov [time_for_speciel], 0
-mov [pressed], 0
-mov [pressed1], 0
-mov [upwards], 1
+; inc [time_for_speciel]
+; cmp [time_for_speciel], 140
+; JNE delay_to_
+; mov [time_for_speciel], 0
+; mov [pressed], 0
+; mov [pressed1], 0
+; mov [upwards], 1
 call create_the_player
 delay_to_:
 	JMP main
@@ -1998,8 +2009,8 @@ PROC break
 	call print_score
 
 not_new_best:
-	 cmp [progress], 69
-	 JNE bad_job
+	cmp [progress], 69
+	JNE bad_job
 
 	mov ah, 02h ; cursor position
 	mov bh, 00h ; page number
